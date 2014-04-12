@@ -1,0 +1,6 @@
+atlassian-ide-plugin.xml
+.idea/workspace.xml
+.idea/tasks.xml
+target
+.gradle
+build/

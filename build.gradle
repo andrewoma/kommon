@@ -1,0 +1,31 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.7.271'
+  }
+}
+
+apply plugin: "kotlin"
+apply plugin: "maven"
+
+group = "com.github.andrewoma.kommon"
+version = "0.1-SNAPSHOT"
+
+compileKotlin {
+//    kotlinOptions.annotations = file('annotations')
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.jetbrains.kotlin:kotlin-stdlib:0.7.271'
+  testCompile 'junit:junit:4.11'
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "1.11"
+}
