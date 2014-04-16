@@ -68,7 +68,7 @@ public fun shell(command: String,
 
     if (verify(result.exitCode)) return result
 
-    val error = """Command exit code failed verfication.
+    val error = """Command exit code failed verification.
         Command: $command
         Directory: $directory
         Environment: $environment
