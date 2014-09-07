@@ -105,7 +105,7 @@ public fun Process.result(captureOut: Boolean = true, captureError: Boolean = tr
         }
         override fun close() {
         }
-        override fun toString(): String? = ""
+        override fun toString(): String = ""
     }
 
     class OutputConsumer(val input: InputStream?, val writer: Writer) : Thread() {
@@ -124,5 +124,5 @@ public fun Process.result(captureOut: Boolean = true, captureError: Boolean = tr
     outConsumer.join()
     errorConsumer.join()
 
-    return ProcessResult(outConsumer.writer.toString()!!, errorConsumer.writer.toString()!!, exitCode)
+    return ProcessResult(outConsumer.writer.toString(), errorConsumer.writer.toString(), exitCode)
 }
