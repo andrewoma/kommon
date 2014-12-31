@@ -3,7 +3,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.9.66'
+    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.10.195'
   }
 }
 
@@ -13,19 +13,15 @@ apply plugin: "maven"
 group = "com.github.andrewoma.kommon"
 version = "0.1-SNAPSHOT"
 
-compileKotlin {
-//    kotlinOptions.annotations = file('annotations')
-}
-
 repositories {
   mavenCentral()
 }
 
 dependencies {
-  compile 'org.jetbrains.kotlin:kotlin-stdlib:0.9.66'
+  compile 'org.jetbrains.kotlin:kotlin-stdlib:0.10.195'
   testCompile 'junit:junit:4.11'
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "1.11"
+  gradleVersion = "2.2.1"
 }
