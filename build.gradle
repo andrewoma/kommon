@@ -1,10 +1,13 @@
 buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-    classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:0.10.195'
-  }
+    ext {
+        kotlinVersion = '0.10.195'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
 }
 
 apply plugin: "kotlin"
@@ -14,14 +17,14 @@ group = "com.github.andrewoma.kommon"
 version = "0.1-SNAPSHOT"
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  compile 'org.jetbrains.kotlin:kotlin-stdlib:0.10.195'
-  testCompile 'junit:junit:4.11'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    testCompile 'junit:junit:4.11'
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "2.2.1"
+    gradleVersion = "2.2.1"
 }
