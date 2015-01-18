@@ -27,9 +27,7 @@ import java.io.File
 
 public val currentDir: File = File(System.getProperty("user.dir")!!)
 public val homeDir: File = File(System.getProperty("user.home")!!)
-public val scriptFile: File? = map(System.getProperty("kotlin.script.file")) { if (it == null) null else File(it) }
-
-private fun <T, R> map(t: T, f: (T) -> R): R = f(t)
+public val scriptFile: File? = System.getProperty("kotlin.script.file").let { if (it == null) null else File(it) }
 
 /**
  * Returns the specified environment variable is specified
