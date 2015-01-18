@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.github.andrewoma.kommon.script
+package com.github.andrewoma.kommon.io
 
 import java.nio.charset.Charset
 import java.io.InputStream
