@@ -22,8 +22,26 @@
 
 package com.github.andrewoma.kommon.collection
 
+import kotlin.support.AbstractIterator
+
 public fun <K, V> Map<K, V>.plus(other: Map<K, V>): Map<K, V> {
     val result = this.toLinkedMap()
     result.putAll(other)
     return result
+}
+
+public fun <T> Stream<T>.chunked(size: Int): Stream<List<T>> {
+    val iterator = this.iterator()
+
+    return object : Stream<List<T>> {
+        override fun iterator() = object : AbstractIterator<List<T>>() {
+            override fun computeNext() {
+                val next = arrayListOf<T>()
+                while (iterator.hasNext() && next.size() < size) {
+                    next.add(iterator.next())
+                }
+                if (next.isEmpty()) done() else setNext(next)
+            }
+        }
+    }
 }

@@ -35,7 +35,25 @@ class ExtensionsTest {
     test fun `map plus should concatenate into a new instance`() {
         val map = mapOf(1 to 2)
         val newMap = map + mapOf(3 to 4)
-        assertEquals(newMap, mapOf(1 to 2, 3 to 4))
+        assertEquals(mapOf(1 to 2, 3 to 4), newMap)
         assertFalse(map.identityEquals(newMap))
+    }
+
+    test fun `chunked empty stream should yield an empty list`() {
+        assertEquals(listOf<List<Int>>(), listOf<Int>().stream().chunked(1).toList())
+    }
+
+    test fun `chunked stream of chunk size should yield a single list`() {
+        assertEquals(listOf(listOf(1)), listOf(1).stream().chunked(1).toList())
+        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(2).toList())
+    }
+
+    test fun `chunked stream of multiples should yield full lists`() {
+        assertEquals(listOf(listOf(1), listOf(2)), listOf(1, 2).stream().chunked(1).toList())
+        assertEquals(listOf(listOf(1, 2), listOf(3, 4)), listOf(1, 2, 3, 4).stream().chunked(2).toList())
+    }
+
+    test fun `chunked stream indivisible by size should yield remainder list`() {
+        assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).stream().chunked(2).toList())
     }
 }
