@@ -56,4 +56,8 @@ class ExtensionsTest {
     test fun `chunked stream indivisible by size should yield remainder list`() {
         assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).stream().chunked(2).toList())
     }
+
+    test fun `chunked stream should yield remainder as list if stream less than chunk size`() {
+        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(5).toList())
+    }
 }

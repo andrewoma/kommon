@@ -23,6 +23,7 @@
 package com.github.andrewoma.kommon.collection
 
 import kotlin.support.AbstractIterator
+import java.util.ArrayList
 
 public fun <K, V> Map<K, V>.plus(other: Map<K, V>): Map<K, V> {
     val result = this.toLinkedMap()
@@ -36,7 +37,7 @@ public fun <T> Stream<T>.chunked(size: Int): Stream<List<T>> {
     return object : Stream<List<T>> {
         override fun iterator() = object : AbstractIterator<List<T>>() {
             override fun computeNext() {
-                val next = arrayListOf<T>()
+                val next = ArrayList<T>(size)
                 while (iterator.hasNext() && next.size() < size) {
                     next.add(iterator.next())
                 }
