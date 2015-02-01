@@ -25,6 +25,7 @@ package com.github.andrewoma.kommon.collection
 import org.junit.Test as test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import java.util.HashMap
 
 class ExtensionsTest {
     test fun `map plus should concatenate maps`() {
@@ -59,5 +60,13 @@ class ExtensionsTest {
 
     test fun `chunked stream should yield remainder as list if stream less than chunk size`() {
         assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(5).toList())
+    }
+
+    test fun `hashMap with expected size should allow for load factor`() {
+        assertEquals(1, capacity(0))
+        assertEquals(14, capacity(10))
+        assertEquals(134, capacity(100))
+        assertEquals(1334, capacity(1000))
+        assertEquals(Integer.MAX_VALUE, capacity(Integer.MAX_VALUE - 1)) // Check we don't overflow
     }
 }

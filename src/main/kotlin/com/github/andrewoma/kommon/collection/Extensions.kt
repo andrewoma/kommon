@@ -24,6 +24,7 @@ package com.github.andrewoma.kommon.collection
 
 import kotlin.support.AbstractIterator
 import java.util.ArrayList
+import java.util.HashMap
 
 public fun <K, V> Map<K, V>.plus(other: Map<K, V>): Map<K, V> {
     val result = this.toLinkedMap()
@@ -45,4 +46,14 @@ public fun <T> Stream<T>.chunked(size: Int): Stream<List<T>> {
             }
         }
     }
+}
+
+/**
+ * Creates a HashMap with a capacity to handle 'size' elements without requiring internal resizing.
+ * It does this by adding roughly 30% extra to the size to allow for the default 0.75 load factor
+ */
+public fun <K, V> hashMapOfExpectedSize(size: Int): HashMap<K, V> = HashMap(capacity(size))
+
+fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
+    if (it > Integer.MAX_VALUE) Integer.MAX_VALUE else it.toInt()
 }
