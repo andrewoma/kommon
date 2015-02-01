@@ -48,8 +48,8 @@ public fun exec(command: List<String>,
 }
 
 fun String.dropRight(num: Int): String {
-    if (num >= this.length) return this
-    return "..." + this.drop(this.length - num)
+    if (num >= this.length()) return this
+    return "..." + this.drop(this.length() - num)
 }
 
 /**

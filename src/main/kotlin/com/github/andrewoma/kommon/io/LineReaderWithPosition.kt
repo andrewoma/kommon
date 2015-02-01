@@ -111,9 +111,9 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
     fun append(byte: Byte) {
         if (bufferPos == lineBufferSize) { // Buffer full
             if (result != null) {
-                val newResult = ByteArray(result!!.size + lineBufferSize)
-                System.arraycopy(result!!, 0, newResult, 0, result!!.size)
-                System.arraycopy(buffer, 0, newResult, result!!.size, lineBufferSize)
+                val newResult = ByteArray(result!!.size() + lineBufferSize)
+                System.arraycopy(result!!, 0, newResult, 0, result!!.size())
+                System.arraycopy(buffer, 0, newResult, result!!.size(), lineBufferSize)
                 result = newResult
             } else {
                 result = ByteArray(lineBufferSize)
@@ -132,9 +132,9 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
         } else if (bufferPos == 0) {
             String(result!!, charSet)
         } else {
-            val newResult = ByteArray(result!!.size + bufferPos)
-            System.arraycopy(result!!, 0, newResult, 0, result!!.size)
-            System.arraycopy(buffer, 0, newResult, result!!.size, bufferPos)
+            val newResult = ByteArray(result!!.size() + bufferPos)
+            System.arraycopy(result!!, 0, newResult, 0, result!!.size())
+            System.arraycopy(buffer, 0, newResult, result!!.size(), bufferPos)
             String(newResult, charSet)
         }
 
@@ -148,6 +148,6 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
     }
 
     fun stream(): Stream<LineWithPosition> {
-        return FunctionStream<LineWithPosition> { this.readLine() }
+        return FunctionStream { this.readLine() }
     }
 }
