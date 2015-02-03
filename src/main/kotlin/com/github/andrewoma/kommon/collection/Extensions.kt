@@ -57,3 +57,66 @@ public fun <K, V> hashMapOfExpectedSize(size: Int): HashMap<K, V> = HashMap(capa
 fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
     if (it > Integer.MAX_VALUE) Integer.MAX_VALUE else it.toInt()
 }
+
+/**
+ * Creates a fixed size window view within a stream, allowing arbitrary look aheads or look behinds.
+ *
+ * e.g. listOf(1, 2, 3, 4).stream().window(before = 1, after = 1).forEach { println(it) }
+ *   [null, 1, 2]
+ *   [1, 2, 3]
+ *   [2, 3, 4]
+ *   [3, 4, null]
+ *
+ * Note that the position of current element is always same as the and window is always the same size
+ * (padded with nulls where required).
+ *
+ * This allows for easy processing of common cases through list destructuring. e.g.
+ *
+ *   listOf(1, 2, 3).stream().window(after = 1).forEach {
+ *     val (current, next) = it
+ *     ...
+ *   }
+ *
+ *  For better performance setting reuseList = true will return the internal buffer directly instead of
+ *  creating a copy. WARNING: Only do this if consuming the returned list before the next iteration
+ */
+[suppress("BASE_WITH_NULLABLE_UPPER_BOUND")]
+public fun <T> Stream<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Stream<List<T?>> {
+    val iterator = this.iterator()
+
+    return object : Stream<List<T?>> {
+        val size = before + after + 1
+        val buffer = CircularBuffer<T?>(size)
+        var ahead = 0
+        var first = true;
+
+        {
+            for (i in 1..size) {
+                when {
+                    i <= before -> buffer.add(null)
+                    iterator.hasNext() -> { buffer.add(iterator.next()); ahead++ }
+                    else -> buffer.add(null)
+                }
+            }
+        }
+
+        override fun iterator() = object : AbstractIterator<List<T?>>() {
+            fun setNext() = setNext(if (reuseList) buffer else ArrayList(buffer))
+
+            override fun computeNext() {
+                // TODO ... special casing for first seems ugly
+                if (first) {
+                    first = false
+                    if (ahead == 0) done() else { ahead--; setNext() }
+                    return
+                }
+
+                when {
+                    iterator.hasNext() -> { buffer.add(iterator.next()); setNext() }
+                    ahead == 0 -> done()
+                    else -> { buffer.add(null); ahead--; setNext() }
+                }
+            }
+        }
+    }
+}

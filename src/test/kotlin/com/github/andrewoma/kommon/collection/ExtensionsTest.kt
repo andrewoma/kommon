@@ -69,4 +69,37 @@ class ExtensionsTest {
         assertEquals(1334, capacity(1000))
         assertEquals(Integer.MAX_VALUE, capacity(Integer.MAX_VALUE - 1)) // Check we don't overflow
     }
+
+    test fun `window looking ahead and behind`() {
+        assertWindow(listOf(1, 2, 3).stream().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
+    }
+
+    test fun `window looking ahead`() {
+        assertWindow(listOf(1, 2, 3).stream().window(after = 1), "[[1, 2], [2, 3], [3, null]]")
+    }
+
+    test fun `window looking behind`() {
+        assertWindow(listOf(1, 2, 3).stream().window(before = 1), "[[null, 1], [1, 2], [2, 3]]")
+    }
+
+    test fun `window of current element`() {
+        assertWindow(listOf(1, 2, 3).stream().window(), "[[1], [2], [3]]")
+    }
+
+    test fun `window of empty stream`() {
+        assertWindow(listOf<Int>().stream().window(), "[]")
+    }
+
+    test fun `window destructing`() {
+        val result = listOf(1, 2, 3).stream().window(before = 1, after = 1).map {
+            val (prev, curr, next) = it
+            curr!! * 10
+        }.toList()
+
+        assertEquals(listOf(10, 20, 30), result)
+    }
+
+    private fun assertWindow(actual: Stream<List<Int?>>, expected: String) {
+        assertEquals(expected, actual.toList().toString())
+    }
 }

@@ -133,4 +133,8 @@ class CircularBuffer<T>(size: Int) : List<T> {
     override fun subList(fromIndex: Int, toIndex: Int): List<T> {
         throw UnsupportedOperationException()
     }
+
+    override fun toString(): String {
+        return this.joinToString(", ", "[", "]")
+    }
 }
