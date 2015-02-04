@@ -93,6 +93,7 @@ class ExtensionsTest {
     test fun `window destructing`() {
         val result = listOf(1, 2, 3).stream().window(before = 1, after = 1).map {
             val (prev, curr, next) = it
+            println("$prev $curr $next")
             curr!! * 10
         }.toList()
 
