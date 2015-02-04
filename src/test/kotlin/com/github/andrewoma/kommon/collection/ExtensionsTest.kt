@@ -70,6 +70,10 @@ class ExtensionsTest {
         assertEquals(Integer.MAX_VALUE, capacity(Integer.MAX_VALUE - 1)) // Check we don't overflow
     }
 
+    test fun `hashMap with expected size should return a hashmap`() {
+        assertEquals(mapOf<Int, Int>(), hashMapOfExpectedSize<Int, Int>(10))
+    }
+
     test fun `window looking ahead and behind`() {
         assertWindow(listOf(1, 2, 3).stream().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
     }

@@ -75,8 +75,6 @@ class CircularBuffer<T>(size: Int) : List<T> {
 
     private fun increment(index: Int) = (index + 1).let { if (it >= maxElements) 0 else it }
 
-    private fun decrement(index: Int) = (index - 1).let { if (it < 0) maxElements - 1 else it }
-
     override fun iterator(): Iterator<T> {
         return object : Iterator<T> {
             private var index = start
