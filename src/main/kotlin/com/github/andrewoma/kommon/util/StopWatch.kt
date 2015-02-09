@@ -77,15 +77,13 @@ public class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
     }
 }
 
-public fun TimeUnit.abbreviation(): String {
-    return when (this) {
-        NANOSECONDS -> "ns"
-        MICROSECONDS -> "\u03bcs"
-        MILLISECONDS -> "ms"
-        SECONDS -> "s"
-        MINUTES -> "m"
-        HOURS -> "h"
-        DAYS -> "d"
-        else -> name()
-    }
+public fun TimeUnit.abbreviation(): String = when (this) {
+    NANOSECONDS -> "ns"
+    MICROSECONDS -> "\u03bcs"
+    MILLISECONDS -> "ms"
+    SECONDS -> "s"
+    MINUTES -> "m"
+    HOURS -> "h"
+    DAYS -> "d"
+    else -> name()
 }

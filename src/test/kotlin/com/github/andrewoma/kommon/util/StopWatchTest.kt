@@ -26,7 +26,7 @@ import org.junit.Test as test
 import kotlin.test.assertEquals
 import java.util.concurrent.TimeUnit
 
-class ProcessTest() {
+class StopWatchTest() {
     var time = 0L
     val stopWatch = StopWatch({ time })
 
@@ -62,6 +62,7 @@ class ProcessTest() {
         stopWatch.time {
             time = 25
         }
+        time = 35
         assertEquals(15L, stopWatch.elapsed(TimeUnit.NANOSECONDS))
     }
 
