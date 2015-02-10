@@ -35,51 +35,56 @@ class ProcessTest() {
         assertEquals("Goodbye", result.error.trim())
     }
 
-    test fun shellWithoutCapture() {
+    test fun `shell without capture should not capture output`() {
         val result = shell("echo 'Hello' && echo 'Goodbye' 1>&2", captureOut = false, captureError = false)
         assertEquals("", result.out)
         assertEquals("", result.error)
     }
 
-    test fun shellWithRedirectError() {
+    test fun `shell with redirected stderr should capture error in out`() {
         val out = shell("echo 'Hello' && echo 'Goodbye' 1>&2", redirectError = true).out
         assertEquals("Hello\nGoodbye", out.trim())
     }
 
-    test fun shellWithEnvironment() {
+    test fun `shell should have access to passed environment`() {
         val out = shell("echo \$HELLO \$WORLD", environment = mapOf("HELLO" to "foo", "WORLD" to "bar")).out
         assertEquals("foo bar", out.trim())
     }
 
-    test(expected = javaClass<IllegalStateException>()) fun shellDefaultVerificationWithFailure() {
+    test(expected = javaClass<IllegalStateException>()) fun `shell with default verification should fail on non-zero exit code`() {
         shell("exit 1")
     }
 
-    test fun shellDefaultVerification() {
+    test fun `shell with default verification should succeed on zero exit code`() {
         shell("exit 0")
     }
 
-    test fun shellWithCustomVerification() {
+    test fun `shell should honour custom verification function`() {
         shell("exit 1", verify = { true })
     }
 
-    test fun env() {
+    test fun `env should give access to environment variables`() {
         assertNotNull(env("HOME"))
     }
 
-    test fun errorMessage() {
+    test fun `shell should give meaningful errors on failure`() {
         try {
             shell("echo 'Hello' && echo 'Goodbye' 1>&2 && exit 1")
             fail()
         } catch(e: IllegalStateException) {
-            println(e.getMessage()) // For visual inspection
-        }
-    }
+            val expected = """Command exit code failed verification.
+        Command: echo 'Hello' && echo 'Goodbye' 1>&2 && exit 1
+        Directory: /Users/andrew/dev/projects/kommon
+        Environment: {}
+        RedirectError: false
+        CaptureOut: true
+        CaptureError: true
+        ExitCode: 1
+        Out: Hello
 
-    test fun dropRight() {
-        assertEquals("...", "hello".dropRight(0))
-        assertEquals("...llo", "hello".dropRight(3))
-        assertEquals("hello", "hello".dropRight(5))
-        assertEquals("hello", "hello".dropRight(100))
+        Error: Goodbye
+"""
+            assertEquals(expected, e.getMessage())
+        }
     }
 }

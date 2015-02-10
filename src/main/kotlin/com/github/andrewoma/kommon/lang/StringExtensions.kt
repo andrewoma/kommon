@@ -63,4 +63,9 @@ public fun String.trimMargin(): String {
 
 public fun String.isBlank(): Boolean = this.trim().isEmpty()
 
+public fun String.truncateRight(num: Int, prefixOnTruncation: String = ""): String {
+    if (num >= this.length()) return this
+    return prefixOnTruncation + this.drop(this.length() - num)
+}
+
 public val LINE_SEPARATOR: String = System.getProperty("line.separator")!!

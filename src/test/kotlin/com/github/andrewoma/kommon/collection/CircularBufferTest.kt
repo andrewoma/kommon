@@ -29,14 +29,14 @@ import kotlin.test.assertFalse
 
 class CircularBufferTest {
 
-    test fun `an empty buffer should have no size`() {
+    test fun `An empty buffer should have no size`() {
         val buffer = CircularBuffer<Int>(3)
         assertEquals(0, buffer.size())
         assertTrue(buffer.isEmpty())
         assertFalse(buffer.iterator().hasNext())
     }
 
-    test fun `adding`() {
+    test fun `Adding should cycle on overflow`() {
         val buffer = CircularBuffer<Int>(2)
 
         buffer.add(1)
@@ -60,25 +60,26 @@ class CircularBufferTest {
         assertEquals(listOf(2, 3), buffer.stream().toList())
     }
 
-    test fun `removing`() {
+    test fun `Removing should work after overflow`() {
         val buffer = CircularBuffer<Int>(2)
 
         buffer.add(1)
         buffer.add(2)
-        assertEquals(listOf(1, 2), buffer.stream().toList())
-
-        assertEquals(1, buffer.remove())
-        assertEquals(1, buffer.size())
-        assertEquals(2, buffer[0])
-        assertFalse(buffer.isEmpty())
-        assertEquals(listOf(2), buffer.stream().toList())
+        buffer.add(3)
+        assertEquals(listOf(2, 3), buffer.stream().toList())
 
         assertEquals(2, buffer.remove())
+        assertEquals(1, buffer.size())
+        assertEquals(3, buffer[0])
+        assertFalse(buffer.isEmpty())
+        assertEquals(listOf(3), buffer.stream().toList())
+
+        assertEquals(3, buffer.remove())
         assertEquals(0, buffer.size())
         assertTrue(buffer.isEmpty())
     }
 
-    test fun `using nulls`() {
+    test fun `Using nulls should be supported`() {
         val buffer = CircularBuffer<Int?>(2)
         buffer.add(null)
         buffer.add(null)

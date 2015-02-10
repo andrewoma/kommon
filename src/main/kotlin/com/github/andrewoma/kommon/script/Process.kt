@@ -27,6 +27,7 @@ import java.io.Writer
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.StringWriter
+import com.github.andrewoma.kommon.lang.truncateRight
 
 /**
  * Executes a system command using ProcessBuilder
@@ -45,11 +46,6 @@ public fun exec(command: List<String>,
     b.environment()?.putAll(environment)
 
     return b.start()
-}
-
-fun String.dropRight(num: Int): String {
-    if (num >= this.length()) return this
-    return "..." + this.drop(this.length() - num)
 }
 
 /**
@@ -76,8 +72,8 @@ public fun shell(command: String,
         CaptureOut: $captureOut
         CaptureError: $captureError
         ExitCode: ${result.exitCode}
-        Out: ${result.out.dropRight(1000)}
-        Error: ${result.error.dropRight(1000)}"""
+        Out: ${result.out.truncateRight(1000, "...")}
+        Error: ${result.error.truncateRight(1000, "...")}"""
 
     check(verify(result.exitCode), error)
     return result

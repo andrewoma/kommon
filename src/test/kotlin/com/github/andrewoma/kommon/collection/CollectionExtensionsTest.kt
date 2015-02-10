@@ -27,42 +27,42 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import java.util.HashMap
 
-class ExtensionsTest {
-    test fun `map plus should concatenate maps`() {
+class CollectionExtensionsTest {
+    test fun `Map plus should concatenate maps`() {
         assertEquals(mapOf(1 to 2) + mapOf(3 to 4) + mapOf(5 to 6), mapOf(1 to 2, 3 to 4, 5 to 6))
         assertEquals(mapOf(1 to 2) + mapOf(3 to 4, 5 to 6), mapOf(1 to 2, 3 to 4, 5 to 6))
     }
 
-    test fun `map plus should concatenate into a new instance`() {
+    test fun `Map plus should concatenate into a new instance`() {
         val map = mapOf(1 to 2)
         val newMap = map + mapOf(3 to 4)
         assertEquals(mapOf(1 to 2, 3 to 4), newMap)
         assertFalse(map.identityEquals(newMap))
     }
 
-    test fun `chunked empty stream should yield an empty list`() {
+    test fun `Chunked empty stream should yield an empty list`() {
         assertEquals(listOf<List<Int>>(), listOf<Int>().stream().chunked(1).toList())
     }
 
-    test fun `chunked stream of chunk size should yield a single list`() {
+    test fun `Chunked stream of chunk size should yield a single list`() {
         assertEquals(listOf(listOf(1)), listOf(1).stream().chunked(1).toList())
         assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(2).toList())
     }
 
-    test fun `chunked stream of multiples should yield full lists`() {
+    test fun `Chunked stream of multiples should yield full lists`() {
         assertEquals(listOf(listOf(1), listOf(2)), listOf(1, 2).stream().chunked(1).toList())
         assertEquals(listOf(listOf(1, 2), listOf(3, 4)), listOf(1, 2, 3, 4).stream().chunked(2).toList())
     }
 
-    test fun `chunked stream indivisible by size should yield remainder list`() {
+    test fun `Chunked stream indivisible by size should yield remainder list`() {
         assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).stream().chunked(2).toList())
     }
 
-    test fun `chunked stream should yield remainder as list if stream less than chunk size`() {
+    test fun `Chunked stream should yield remainder as list if stream less than chunk size`() {
         assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(5).toList())
     }
 
-    test fun `hashMap with expected size should allow for load factor`() {
+    test fun `HashMap with expected size should allow for load factor`() {
         assertEquals(1, capacity(0))
         assertEquals(14, capacity(10))
         assertEquals(134, capacity(100))
@@ -70,27 +70,27 @@ class ExtensionsTest {
         assertEquals(Integer.MAX_VALUE, capacity(Integer.MAX_VALUE - 1)) // Check we don't overflow
     }
 
-    test fun `hashMap with expected size should return a hashmap`() {
+    test fun `HashMap with expected size should return a hashmap`() {
         assertEquals(mapOf<Int, Int>(), hashMapOfExpectedSize<Int, Int>(10))
     }
 
-    test fun `window looking ahead and behind`() {
+    test fun `Window looking ahead and behind should be fixed size`() {
         assertWindow(listOf(1, 2, 3).stream().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
     }
 
-    test fun `window looking ahead`() {
+    test fun `Window looking ahead should be fixed size`() {
         assertWindow(listOf(1, 2, 3).stream().window(after = 1), "[[1, 2], [2, 3], [3, null]]")
     }
 
-    test fun `window looking behind`() {
+    test fun `Window looking behind should be fixed size`() {
         assertWindow(listOf(1, 2, 3).stream().window(before = 1), "[[null, 1], [1, 2], [2, 3]]")
     }
 
-    test fun `window of current element`() {
+    test fun `Window of current element should be window of size 1`() {
         assertWindow(listOf(1, 2, 3).stream().window(), "[[1], [2], [3]]")
     }
 
-    test fun `window of empty stream`() {
+    test fun `Window of empty stream should be supported`() {
         assertWindow(listOf<Int>().stream().window(), "[]")
     }
 

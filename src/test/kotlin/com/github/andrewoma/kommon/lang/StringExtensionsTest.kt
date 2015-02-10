@@ -69,4 +69,16 @@ Or does it?"""
     test fun `isBlank should be false for non-blank string`() {
         assertFalse("\r\n\t a".isBlank())
     }
+
+    test fun `truncateRight should return the right hand side of a string`() {
+        assertEquals("", "hello".truncateRight(0))
+        assertEquals("llo", "hello".truncateRight(3))
+        assertEquals("hello", "hello".truncateRight(5))
+        assertEquals("hello", "hello".truncateRight(100))
+    }
+
+    test fun `truncateRight should prefix on truncation`() {
+        assertEquals("...", "hello".truncateRight(0, "..."))
+        assertEquals("...llo", "hello".truncateRight(3, "..."))
+    }
 }
