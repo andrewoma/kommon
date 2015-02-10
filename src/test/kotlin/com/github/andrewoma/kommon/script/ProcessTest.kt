@@ -27,6 +27,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import kotlin.test.assertNotNull
 import kotlin.test.fail
+import org.junit.Ignore
 
 class ProcessTest() {
     test fun shellWithCapture() {
@@ -67,7 +68,7 @@ class ProcessTest() {
         assertNotNull(env("HOME"))
     }
 
-    test fun `shell should give meaningful errors on failure`() {
+    Ignore test fun `shell should give meaningful errors on failure`() {
         try {
             shell("echo 'Hello' && echo 'Goodbye' 1>&2 && exit 1")
             fail()
