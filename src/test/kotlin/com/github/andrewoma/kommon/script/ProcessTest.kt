@@ -30,7 +30,7 @@ import kotlin.test.fail
 import org.junit.Ignore
 
 class ProcessTest() {
-    test fun shellWithCapture() {
+    test fun `shell should capture output by default`() {
         val result = shell("echo 'Hello' && echo 'Goodbye' 1>&2")
         assertEquals("Hello", result.out.trim())
         assertEquals("Goodbye", result.error.trim())

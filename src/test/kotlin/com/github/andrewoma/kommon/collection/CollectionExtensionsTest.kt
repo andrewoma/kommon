@@ -94,7 +94,7 @@ class CollectionExtensionsTest {
         assertWindow(listOf<Int>().stream().window(), "[]")
     }
 
-    test fun `window destructing`() {
+    test fun `Window ouput should support destructuring`() {
         val result = listOf(1, 2, 3).stream().window(before = 1, after = 1).map {
             val (prev, curr, next) = it
             println("$prev $curr $next")
