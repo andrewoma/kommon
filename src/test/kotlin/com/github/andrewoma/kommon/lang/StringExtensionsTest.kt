@@ -32,6 +32,10 @@ class StringExtensionsTest {
         assertEquals("", "".trimMargin())
     }
 
+    test fun `trim margin should not change a simple string`() {
+        assertEquals("s", "s".trimMargin())
+    }
+
     test fun `trim margin should trim left a single line`() {
         assertEquals("hello there", "    hello there".trimMargin())
     }
@@ -62,6 +66,35 @@ Or does it?"""
         assertEquals(expected, input.trimMargin())
     }
 
+    test fun `trimMargin should ignore margin on white space only lines`() {
+        val input = "\n      \n  hello\nthere"
+        val actual = input.trimMargin()
+        val expect = "  hello\nthere"
+        assertEquals(expect, actual)
+    }
+
+    test fun `trimMargin should ignore margin on empty lines`() {
+        val input = "\n\n    hello\n  there\n\n"
+        assertEquals("  hello\nthere", input.trimMargin())
+    }
+
+    test fun `trimMargin should ignore leading empty lines`() {
+        val input = "  \n\n  \n    hello"
+        assertEquals("hello", input.trimMargin())
+    }
+
+    test fun `trimMargin should ignore trailing empty lines`() {
+        val input = "   hello\n\n  \n  "
+        assertEquals("hello", input.trimMargin())
+    }
+
+    test fun `trimMargin should return empty string on only whitespace`() {
+        assertEquals("", " ".trimMargin())
+        assertEquals("", "\n".trimMargin())
+        assertEquals("", "\n \n".trimMargin())
+        assertEquals("", " \n \n ".trimMargin())
+    }
+
     test fun `isBlank should be true for blank string`() {
         assertTrue("\r\n\t ".isBlank())
     }
@@ -80,5 +113,29 @@ Or does it?"""
     test fun `truncateRight should prefix on truncation`() {
         assertEquals("...", "hello".truncateRight(0, "..."))
         assertEquals("...llo", "hello".truncateRight(3, "..."))
+    }
+
+    test fun `trimMargin should work well with splitting`() {
+        val sql = """
+            CREATE TABLE actor (
+                actor_id INTEGER IDENTITY
+            );
+
+            CREATE TABLE language (
+                language_id INTEGER IDENTITY
+            );
+
+            CREATE TABLE film_actor (
+                film_id INTEGER NOT NULL
+            )
+        """
+
+        val expected = listOf(
+                "CREATE TABLE actor (\n    actor_id INTEGER IDENTITY\n)",
+                "CREATE TABLE language (\n    language_id INTEGER IDENTITY\n)",
+                "CREATE TABLE film_actor (\n    film_id INTEGER NOT NULL\n)"
+        )
+
+        assertEquals(expected, sql.split(";").map { it.trimMargin() })
     }
 }

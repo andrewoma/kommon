@@ -35,8 +35,8 @@ import java.io.StringReader
  *     """
  *
  * The algorithm is:
- * 1. Strip the first and last lines if they are empty or only contain whitespace.
- * 2. Find the minimum of the first non-whitespace character in all lines
+ * 1. Drop leading and trailing lines only containing whitespace
+ * 2. Find the minimum of the first non-whitespace character in all lines (ignoring lines that only contain white space)
  * 3. Trim the minimum from the start of each line
  *
  * Limitations:
@@ -47,18 +47,23 @@ import java.io.StringReader
 public fun String.trimMargin(): String {
     fun trimBlanksLines(): List<String> {
         val lines = StringReader(this).useLines { it.toList() }
-        val start = if (lines.isNotEmpty() && lines.first().isBlank()) 1 else 0
-        val end = if (lines.size() > 1 && lines.last().isBlank()) lines.size() - 1 else lines.size()
-        return lines.subList(start, end)
+
+        var start = 0
+        while (start < lines.size() && lines[start].isBlank()) start++
+
+        var end = lines.size()
+        while (end > 0 && lines[end - 1].isBlank()) end--
+
+        return if (start >= end) listOf() else lines.subList(start, end)
     }
 
-    fun firstNonWhitespaceCharacter(s: String) =
-            s.withIndex().firstOrNull { !it.value.isWhitespace() }?.index ?: s.length()
+    fun String.firstNonWhitespaceCharacter() =
+            this.withIndex().firstOrNull { !it.value.isWhitespace() }?.index
 
     val lines = trimBlanksLines()
-    val margin = lines.fold(Integer.MAX_VALUE) {(min, s) -> Math.min(min, firstNonWhitespaceCharacter(s)) }
+    val margin = lines.fold(Integer.MAX_VALUE) {(min, s) -> Math.min(min, s.firstNonWhitespaceCharacter() ?: min) }
 
-    return lines.stream().map { it.substring(margin) }.joinToString(LINE_SEPARATOR)
+    return lines.stream().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
 }
 
 // TODO ... rewrite this to be more efficient
