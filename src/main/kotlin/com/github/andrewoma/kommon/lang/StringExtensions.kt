@@ -66,8 +66,12 @@ public fun String.trimMargin(): String {
     return lines.stream().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
 }
 
-// TODO ... rewrite this to be more efficient
-public fun String.isBlank(): Boolean = this.trim().isEmpty()
+public fun String.isBlank(): Boolean {
+    for (ch in this) {
+        if (!Character.isWhitespace(ch)) return false
+    }
+    return true
+}
 
 public fun String.truncateRight(num: Int, prefixOnTruncation: String = ""): String {
     if (num >= this.length()) return this
