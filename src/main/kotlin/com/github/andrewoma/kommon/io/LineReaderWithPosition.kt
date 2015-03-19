@@ -22,10 +22,9 @@
 
 package com.github.andrewoma.kommon.io
 
-import java.nio.charset.Charset
 import java.io.InputStream
-import java.io.BufferedInputStream
 import java.io.PushbackInputStream
+import java.nio.charset.Charset
 
 public data class LineWithPosition(val start: Int, val end: Int, val line: String, val delimiter: String)
 
@@ -109,7 +108,8 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
     }
 
     fun append(byte: Byte) {
-        if (bufferPos == lineBufferSize) { // Buffer full
+        if (bufferPos == lineBufferSize) {
+            // Buffer full
             if (result != null) {
                 val newResult = ByteArray(result!!.size() + lineBufferSize)
                 System.arraycopy(result!!, 0, newResult, 0, result!!.size())

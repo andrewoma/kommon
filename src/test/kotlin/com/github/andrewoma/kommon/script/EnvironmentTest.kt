@@ -22,12 +22,9 @@
 
 package com.github.andrewoma.kommon.script
 
-import org.junit.Test as test
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertNotNull
-import kotlin.test.fail
 import kotlin.test.assertNull
+import org.junit.Test as test
 
 class EnvironmentTest() {
     // TODO ... make these tests a bit more worthwhile

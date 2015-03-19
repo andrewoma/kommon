@@ -22,10 +22,8 @@
 
 package com.github.andrewoma.kommon.collection
 
-import org.junit.Test as test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
-import java.util.HashMap
+import org.junit.Test as test
 
 class CollectionExtensionsTest {
 

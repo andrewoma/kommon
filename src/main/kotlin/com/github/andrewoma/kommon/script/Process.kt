@@ -22,21 +22,17 @@
 
 package com.github.andrewoma.kommon.script
 
-import java.io.File
-import java.io.Writer
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.StringWriter
 import com.github.andrewoma.kommon.lang.truncateRight
+import java.io.*
 
 /**
  * Executes a system command using ProcessBuilder
  */
 public fun exec(command: List<String>,
-        directory: File = currentDir,
-        environment: Map<String, String> = mapOf(),
-        useShell: Boolean = false,
-        redirectError: Boolean = false): Process {
+                directory: File = currentDir,
+                environment: Map<String, String> = mapOf(),
+                useShell: Boolean = false,
+                redirectError: Boolean = false): Process {
 
     val b = ProcessBuilder()
     b.directory(directory)
@@ -52,12 +48,12 @@ public fun exec(command: List<String>,
  * Executes a system command using the system shell, handling the output while it waits for the process to terminate
  */
 public fun shell(command: String,
-        directory: File = currentDir,
-        environment: Map<String, String> = mapOf(),
-        redirectError: Boolean = false,
-        captureOut: Boolean = true,
-        captureError: Boolean = true,
-        verify: (Int) -> Boolean = { it == 0 }): ProcessResult {
+                 directory: File = currentDir,
+                 environment: Map<String, String> = mapOf(),
+                 redirectError: Boolean = false,
+                 captureOut: Boolean = true,
+                 captureError: Boolean = true,
+                 verify: (Int) -> Boolean = { it == 0 }): ProcessResult {
 
     val result = exec(command = listOf(command), directory = directory, redirectError = redirectError,
             useShell = true, environment = environment).result(captureOut, captureError)
@@ -97,10 +93,13 @@ public fun Process.result(captureOut: Boolean = true, captureError: Boolean = tr
     class NullWriter : Writer() {
         override fun write(cbuf: CharArray, off: Int, len: Int) {
         }
+
         override fun flush() {
         }
+
         override fun close() {
         }
+
         override fun toString(): String = ""
     }
 

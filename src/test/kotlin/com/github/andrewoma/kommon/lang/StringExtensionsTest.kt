@@ -22,10 +22,10 @@
 
 package com.github.andrewoma.kommon.lang
 
-import org.junit.Test as test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import org.junit.Test as test
 
 class StringExtensionsTest {
     test fun `trim margin should have no affect on empty string`() {

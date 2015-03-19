@@ -22,9 +22,9 @@
 
 package com.github.andrewoma.kommon.collection
 
-import kotlin.support.AbstractIterator
 import java.util.ArrayList
 import java.util.HashMap
+import kotlin.support.AbstractIterator
 
 public fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
     val iterator = this.iterator()
@@ -88,7 +88,9 @@ public fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Bo
             for (i in 1..size) {
                 when {
                     i <= before -> buffer.add(null)
-                    iterator.hasNext() -> { buffer.add(iterator.next()); ahead++ }
+                    iterator.hasNext() -> {
+                        buffer.add(iterator.next()); ahead++
+                    }
                     else -> buffer.add(null)
                 }
             }
@@ -101,14 +103,20 @@ public fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Bo
                 // TODO ... special casing for first seems ugly
                 if (first) {
                     first = false
-                    if (ahead == 0) done() else { ahead--; setNext() }
+                    if (ahead == 0) done() else {
+                        ahead--; setNext()
+                    }
                     return
                 }
 
                 when {
-                    iterator.hasNext() -> { buffer.add(iterator.next()); setNext() }
+                    iterator.hasNext() -> {
+                        buffer.add(iterator.next()); setNext()
+                    }
                     ahead == 0 -> done()
-                    else -> { buffer.add(null); ahead--; setNext() }
+                    else -> {
+                        buffer.add(null); ahead--; setNext()
+                    }
                 }
             }
         }

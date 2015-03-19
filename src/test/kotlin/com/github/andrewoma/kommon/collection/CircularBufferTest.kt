@@ -22,10 +22,10 @@
 
 package com.github.andrewoma.kommon.collection
 
-import org.junit.Test as test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertFalse
+import kotlin.test.assertTrue
+import org.junit.Test as test
 
 class CircularBufferTest {
 

@@ -22,12 +22,11 @@
 
 package com.github.andrewoma.kommon.script
 
-import org.junit.Test as test
+import org.junit.Ignore
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 import kotlin.test.assertNotNull
 import kotlin.test.fail
-import org.junit.Ignore
+import org.junit.Test as test
 
 class ProcessTest() {
     test fun `shell should capture output by default`() {
