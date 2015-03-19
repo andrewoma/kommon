@@ -42,7 +42,7 @@ public data class LineWithPosition(val start: Int, val end: Int, val line: Strin
 public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int = 8192, val charSet: Charset = Charsets.UTF_8) {
     private enum class Eof { notFound found reported }
 
-    private class object {
+    private companion object {
         val CR = '\r'.toInt()
         val LF = '\n'.toInt()
 
@@ -126,7 +126,7 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
         bufferPos++
     }
 
-    fun result(delimeter: String): LineWithPosition? {
+    fun result(delimiter: String): LineWithPosition? {
         val string = if (result == null) {
             String(buffer, 0, bufferPos, charSet)
         } else if (bufferPos == 0) {
@@ -138,7 +138,7 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
             String(newResult, charSet)
         }
 
-        val line = LineWithPosition(start, end, string, delimeter)
+        val line = LineWithPosition(start, end, string, delimiter)
 
         start = end
         bufferPos = 0
@@ -147,7 +147,7 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
         return line
     }
 
-    fun stream(): Stream<LineWithPosition> {
-        return FunctionStream { this.readLine() }
+    fun sequence(): Sequence<LineWithPosition> {
+        return FunctionSequence { this.readLine() }
     }
 }

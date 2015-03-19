@@ -61,9 +61,9 @@ public fun String.trimMargin(): String {
             this.withIndex().firstOrNull { !it.value.isWhitespace() }?.index
 
     val lines = trimBlanksLines()
-    val margin = lines.fold(Integer.MAX_VALUE) {(min, s) -> Math.min(min, s.firstNonWhitespaceCharacter() ?: min) }
+    val margin = lines.fold(Integer.MAX_VALUE) { min, s -> Math.min(min, s.firstNonWhitespaceCharacter() ?: min) }
 
-    return lines.stream().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
+    return lines.sequence().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
 }
 
 public fun String.isBlank(): Boolean {

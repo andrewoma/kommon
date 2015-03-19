@@ -28,38 +28,27 @@ import kotlin.test.assertFalse
 import java.util.HashMap
 
 class CollectionExtensionsTest {
-    test fun `Map plus should concatenate maps`() {
-        assertEquals(mapOf(1 to 2) + mapOf(3 to 4) + mapOf(5 to 6), mapOf(1 to 2, 3 to 4, 5 to 6))
-        assertEquals(mapOf(1 to 2) + mapOf(3 to 4, 5 to 6), mapOf(1 to 2, 3 to 4, 5 to 6))
+
+    test fun `Chunked empty sequence should yield an empty list`() {
+        assertEquals(listOf<List<Int>>(), listOf<Int>().sequence().chunked(1).toList())
     }
 
-    test fun `Map plus should concatenate into a new instance`() {
-        val map = mapOf(1 to 2)
-        val newMap = map + mapOf(3 to 4)
-        assertEquals(mapOf(1 to 2, 3 to 4), newMap)
-        assertFalse(map.identityEquals(newMap))
+    test fun `Chunked sequence of chunk size should yield a single list`() {
+        assertEquals(listOf(listOf(1)), listOf(1).sequence().chunked(1).toList())
+        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).sequence().chunked(2).toList())
     }
 
-    test fun `Chunked empty stream should yield an empty list`() {
-        assertEquals(listOf<List<Int>>(), listOf<Int>().stream().chunked(1).toList())
+    test fun `Chunked sequence of multiples should yield full lists`() {
+        assertEquals(listOf(listOf(1), listOf(2)), listOf(1, 2).sequence().chunked(1).toList())
+        assertEquals(listOf(listOf(1, 2), listOf(3, 4)), listOf(1, 2, 3, 4).sequence().chunked(2).toList())
     }
 
-    test fun `Chunked stream of chunk size should yield a single list`() {
-        assertEquals(listOf(listOf(1)), listOf(1).stream().chunked(1).toList())
-        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(2).toList())
+    test fun `Chunked sequence indivisible by size should yield remainder list`() {
+        assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).sequence().chunked(2).toList())
     }
 
-    test fun `Chunked stream of multiples should yield full lists`() {
-        assertEquals(listOf(listOf(1), listOf(2)), listOf(1, 2).stream().chunked(1).toList())
-        assertEquals(listOf(listOf(1, 2), listOf(3, 4)), listOf(1, 2, 3, 4).stream().chunked(2).toList())
-    }
-
-    test fun `Chunked stream indivisible by size should yield remainder list`() {
-        assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).stream().chunked(2).toList())
-    }
-
-    test fun `Chunked stream should yield remainder as list if stream less than chunk size`() {
-        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).stream().chunked(5).toList())
+    test fun `Chunked sequence should yield remainder as list if sequence less than chunk size`() {
+        assertEquals(listOf(listOf(1, 2)), listOf(1, 2).sequence().chunked(5).toList())
     }
 
     test fun `HashMap with expected size should allow for load factor`() {
@@ -75,27 +64,27 @@ class CollectionExtensionsTest {
     }
 
     test fun `Window looking ahead and behind should be fixed size`() {
-        assertWindow(listOf(1, 2, 3).stream().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
+        assertWindow(listOf(1, 2, 3).sequence().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
     }
 
     test fun `Window looking ahead should be fixed size`() {
-        assertWindow(listOf(1, 2, 3).stream().window(after = 1), "[[1, 2], [2, 3], [3, null]]")
+        assertWindow(listOf(1, 2, 3).sequence().window(after = 1), "[[1, 2], [2, 3], [3, null]]")
     }
 
     test fun `Window looking behind should be fixed size`() {
-        assertWindow(listOf(1, 2, 3).stream().window(before = 1), "[[null, 1], [1, 2], [2, 3]]")
+        assertWindow(listOf(1, 2, 3).sequence().window(before = 1), "[[null, 1], [1, 2], [2, 3]]")
     }
 
     test fun `Window of current element should be window of size 1`() {
-        assertWindow(listOf(1, 2, 3).stream().window(), "[[1], [2], [3]]")
+        assertWindow(listOf(1, 2, 3).sequence().window(), "[[1], [2], [3]]")
     }
 
-    test fun `Window of empty stream should be supported`() {
-        assertWindow(listOf<Int>().stream().window(), "[]")
+    test fun `Window of empty sequence should be supported`() {
+        assertWindow(listOf<Int>().sequence().window(), "[]")
     }
 
     test fun `Window ouput should support destructuring`() {
-        val result = listOf(1, 2, 3).stream().window(before = 1, after = 1).map {
+        val result = listOf(1, 2, 3).sequence().window(before = 1, after = 1).map {
             val (prev, curr, next) = it
             println("$prev $curr $next")
             curr!! * 10
@@ -104,7 +93,7 @@ class CollectionExtensionsTest {
         assertEquals(listOf(10, 20, 30), result)
     }
 
-    private fun assertWindow(actual: Stream<List<Int?>>, expected: String) {
+    private fun assertWindow(actual: Sequence<List<Int?>>, expected: String) {
         assertEquals(expected, actual.toList().toString())
     }
 }

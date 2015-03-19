@@ -105,7 +105,7 @@ public fun Process.result(captureOut: Boolean = true, captureError: Boolean = tr
     }
 
     class OutputConsumer(val input: InputStream?, val writer: Writer) : Thread() {
-        {
+        init {
             if (input != null) start()
         }
 

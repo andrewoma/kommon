@@ -31,7 +31,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
     private var full = false
     private var maxElements = 0
 
-    {
+    init {
         require(size >= 0, "The size must be greater than 0")
         elements = arrayOfNulls<Any>(size)
         maxElements = elements.size()

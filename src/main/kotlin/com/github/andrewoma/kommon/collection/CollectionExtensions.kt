@@ -26,16 +26,10 @@ import kotlin.support.AbstractIterator
 import java.util.ArrayList
 import java.util.HashMap
 
-public fun <K, V> Map<K, V>.plus(other: Map<K, V>): Map<K, V> {
-    val result = this.toLinkedMap()
-    result.putAll(other)
-    return result
-}
-
-public fun <T> Stream<T>.chunked(size: Int): Stream<List<T>> {
+public fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
     val iterator = this.iterator()
 
-    return object : Stream<List<T>> {
+    return object : Sequence<List<T>> {
         override fun iterator() = object : AbstractIterator<List<T>>() {
             override fun computeNext() {
                 val next = ArrayList<T>(size)
@@ -81,16 +75,16 @@ fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
  *  creating a copy. WARNING: Only do this if consuming the returned list before the next iteration
  */
 [suppress("BASE_WITH_NULLABLE_UPPER_BOUND")]
-public fun <T> Stream<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Stream<List<T?>> {
+public fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Sequence<List<T?>> {
     val iterator = this.iterator()
 
-    return object : Stream<List<T?>> {
+    return object : Sequence<List<T?>> {
         val size = before + after + 1
         val buffer = CircularBuffer<T?>(size)
         var ahead = 0
         var first = true;
 
-        {
+        init {
             for (i in 1..size) {
                 when {
                     i <= before -> buffer.add(null)
