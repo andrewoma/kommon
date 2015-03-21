@@ -17,7 +17,6 @@ apply plugin: "maven"
 apply from: 'publish.gradle'
 
 group = "com.github.andrewoma.kommon"
-version = "0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
