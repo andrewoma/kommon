@@ -7,7 +7,10 @@ as the standard library matures.
 
 #### Status
 
-Unstable and not for production use.
+Unstable, but probably works.
+
+[0.1](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.1%7Cjar) is available
+in Maven Central and is compatible with Kotlin M11.
 
 #### Features
 
@@ -23,17 +26,14 @@ val out = shell("echo \$HELLO \$WORLD", environment = mapOf("HELLO" to "foo", "W
 
 The collections package contains extension functions for collections. e.g.
 ```kotlin
-// Concatenate Maps
-val map = mapOf(1 to 2) + mapOf(3 to 4)
-
-// Process a stream in chunks. e.g. insert records in batches of 10
-val records: Stream<Record> ...
+// Process a sequence in chunks. e.g. insert records in batches of 10
+val records: Sequence<Record> ...
 for (batch in records.chunked(10)) {
     insert(batch)
 }
 
-// Process a stream using a window to look ahead and/or behind
-val lines: Stream<String> ...
+// Process a sequence using a window to look ahead and/or behind
+val lines: Sequence<String> ...
 for (window in lines.window(before = 1, after = 1) {
     val (prev, current, next) = window
     ...
