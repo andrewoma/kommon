@@ -69,7 +69,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
         }
         full = false
 
-        [suppress("UNCHECKED_CAST")]
+        @suppress("UNCHECKED_CAST")
         return element as T
     }
 
@@ -91,7 +91,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
                 lastReturnedIndex = index
                 index = increment(index)
 
-                [suppress("UNCHECKED_CAST")]
+                @suppress("UNCHECKED_CAST")
                 return elements[lastReturnedIndex] as T
             }
         }
@@ -108,7 +108,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
     override fun get(index: Int): T {
         if (index >= size()) throw IndexOutOfBoundsException("")
         val pos = (start + index).let { if (it >= maxElements) it - maxElements else it }
-        [suppress("UNCHECKED_CAST")]
+        @suppress("UNCHECKED_CAST")
         return elements[pos] as T
     }
 

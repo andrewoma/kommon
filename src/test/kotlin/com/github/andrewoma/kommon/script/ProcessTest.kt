@@ -51,7 +51,7 @@ class ProcessTest() {
         assertEquals("foo bar", out.trim())
     }
 
-    test(expected = javaClass<IllegalStateException>()) fun `shell with default verification should fail on non-zero exit code`() {
+    test(expected = IllegalStateException::class) fun `shell with default verification should fail on non-zero exit code`() {
         shell("exit 1")
     }
 

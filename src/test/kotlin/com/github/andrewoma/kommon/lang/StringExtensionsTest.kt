@@ -95,14 +95,6 @@ Or does it?"""
         assertEquals("", " \n \n ".trimMargin())
     }
 
-    test fun `isBlank should be true for blank string`() {
-        assertTrue("\r\n\t ".isBlank())
-    }
-
-    test fun `isBlank should be false for non-blank string`() {
-        assertFalse("\r\n\t a".isBlank())
-    }
-
     test fun `truncateRight should return the right hand side of a string`() {
         assertEquals("", "hello".truncateRight(0))
         assertEquals("llo", "hello".truncateRight(3))
@@ -136,6 +128,6 @@ Or does it?"""
                 "CREATE TABLE film_actor (\n    film_id INTEGER NOT NULL\n)"
         )
 
-        assertEquals(expected, sql.split(";").map { it.trimMargin() })
+        assertEquals(expected, sql.split(";".toRegex()).toTypedArray().map { it.trimMargin() })
     }
 }

@@ -38,7 +38,7 @@ public fun exec(command: List<String>,
     b.directory(directory)
     b.redirectErrorStream(redirectError)
     // TODO ... support other platforms
-    b.command(if (useShell) arrayListOf("/bin/bash", "-c", *command.copyToArray()) else command)
+    b.command(if (useShell) arrayListOf("/bin/bash", "-c", *command.toTypedArray()) else command)
     b.environment()?.putAll(environment)
 
     return b.start()

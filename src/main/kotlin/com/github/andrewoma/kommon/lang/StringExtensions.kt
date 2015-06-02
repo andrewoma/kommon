@@ -63,14 +63,7 @@ public fun String.trimMargin(): String {
     val lines = trimBlanksLines()
     val margin = lines.fold(Integer.MAX_VALUE) { min, s -> Math.min(min, s.firstNonWhitespaceCharacter() ?: min) }
 
-    return lines.sequence().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
-}
-
-public fun String.isBlank(): Boolean {
-    for (ch in this) {
-        if (!Character.isWhitespace(ch)) return false
-    }
-    return true
+    return lines.asSequence().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
 }
 
 public fun String.truncateRight(num: Int, prefixOnTruncation: String = ""): String {
