@@ -12,6 +12,9 @@ Unstable, but probably works.
 [0.1](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.1%7Cjar) is available
 in Maven Central and is compatible with Kotlin M11.
 
+[0.2](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.1%7Cjar) is available
+in Maven Central and is compatible with Kotlin M12.
+
 #### Features
 
 ##### Shell
