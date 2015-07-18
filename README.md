@@ -59,6 +59,19 @@ val map = """
 assertEquals("llo", "hello".truncateRight(3))
 ```
 
+##### Language
+
+A variant of `with` for handy configuration of objects like JavaBeans. 
+
+```kotlin
+val dataSource = DataSource().with {
+    setDefaultAutoCommit(true)
+    setDriverClassName("org.hsqldb.jdbc.JDBCDriver")
+    setUrl("jdbc:hsqldb:mem:kwery")
+}
+
+```
+
 ##### Misc
 ```kotlin
 // A stop watch for basic timings
