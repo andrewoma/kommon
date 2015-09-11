@@ -24,51 +24,7 @@ package com.github.andrewoma.kommon.lang
 
 import java.io.StringReader
 
-/**
- * Trims the margin from a multi-line string.
- *
- * The main use case if for cleaning up triple-quoted Strings embedded in code such as:
- *
- *     val s = """
- *         The rain in spain
- *         falls mainly on the plain
- *     """
- *
- * The algorithm is:
- * 1. Drop leading and trailing lines only containing whitespace
- * 2. Find the minimum of the first non-whitespace character in all lines (ignoring lines that only contain white space)
- * 3. Trim the minimum from the start of each line
- *
- * Limitations:
- * 1. There's no accounting of special characters such as tabs
- * 2. Line delimiters are not preserved - the system default line delimiter is used
- * 3. The implementation doesn't try to be particularly efficient
- */
-public fun String.trimMargin(): String {
-    fun trimBlanksLines(): List<String> {
-        val lines = StringReader(this).useLines { it.toList() }
-
-        var start = 0
-        while (start < lines.size() && lines[start].isBlank()) start++
-
-        var end = lines.size()
-        while (end > 0 && lines[end - 1].isBlank()) end--
-
-        return if (start >= end) listOf() else lines.subList(start, end)
-    }
-
-    fun String.firstNonWhitespaceCharacter() =
-            this.withIndex().firstOrNull { !it.value.isWhitespace() }?.index
-
-    val lines = trimBlanksLines()
-    val margin = lines.fold(Integer.MAX_VALUE) { min, s -> Math.min(min, s.firstNonWhitespaceCharacter() ?: min) }
-
-    return lines.asSequence().map { if (it.length() >= margin) it.substring(margin) else "" }.joinToString(LINE_SEPARATOR)
-}
-
 public fun String.truncateRight(num: Int, prefixOnTruncation: String = ""): String {
     if (num >= this.length()) return this
     return prefixOnTruncation + this.drop(this.length() - num)
 }
-
-public val LINE_SEPARATOR: String = System.getProperty("line.separator")!!

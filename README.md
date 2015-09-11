@@ -44,32 +44,8 @@ for (window in lines.window(before = 1, after = 1) {
 ```
 
 ##### Strings
-```kotlin
-// Trim the margin from multi-line strings
-val map = """
-    create table actor (
-        actor_id integer identity,
-        first_name character varying(45) not null,
-        last_name character varying(45) null,
-        last_update timestamp not null
-    )
-""".trimMargin()
-
 // Truncate, keeping the end of a string
 assertEquals("llo", "hello".truncateRight(3))
-```
-
-##### Language
-
-A variant of `with` for handy configuration of objects like JavaBeans. 
-
-```kotlin
-val dataSource = DataSource().with {
-    setDefaultAutoCommit(true)
-    setDriverClassName("org.hsqldb.jdbc.JDBCDriver")
-    setUrl("jdbc:hsqldb:mem:kwery")
-}
-
 ```
 
 ##### Misc
