@@ -24,25 +24,25 @@ package com.github.andrewoma.kommon.script
 
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import org.junit.Test as test
+import org.junit.Test
 
 class EnvironmentTest() {
     // TODO ... make these tests a bit more worthwhile
-    test fun env() {
+    @Test fun env() {
         assertNotNull(env("HOME"))
     }
 
-    test fun currentDir() {
+    @Test fun currentDir() {
         println(currentDir)
         assertNotNull(currentDir)
     }
 
-    test fun homeDir() {
+    @Test fun homeDir() {
         println(homeDir)
         assertNotNull(homeDir)
     }
 
-    test fun scriptFile() {
+    @Test fun scriptFile() {
         println(scriptFile)
         assertNull(scriptFile)
     }

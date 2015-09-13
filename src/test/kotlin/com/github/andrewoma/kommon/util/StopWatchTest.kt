@@ -27,13 +27,13 @@ import java.util.concurrent.TimeUnit.MINUTES
 import java.util.concurrent.TimeUnit.NANOSECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.test.assertEquals
-import org.junit.Test as test
+import org.junit.Test
 
 class StopWatchTest() {
     var time = 0L
     val stopWatch = StopWatch({ time })
 
-    test fun `Elapsed should equal start - stop`() {
+    @Test fun `Elapsed should equal start - stop`() {
         stopWatch.start()
         time = 10
         stopWatch.stop()
@@ -41,13 +41,13 @@ class StopWatchTest() {
         assertEquals(10L, stopWatch.elapsed(NANOSECONDS))
     }
 
-    test fun `Elapsed should equal start - current while running`() {
+    @Test fun `Elapsed should equal start - current while running`() {
         stopWatch.start()
         time = 10
         assertEquals(10L, stopWatch.elapsed(NANOSECONDS))
     }
 
-    test fun `Elapse should accumulate`() {
+    @Test fun `Elapse should accumulate`() {
         stopWatch.start()
         time = 10
         stopWatch.stop()
@@ -60,7 +60,7 @@ class StopWatchTest() {
         assertEquals(15L, stopWatch.elapsed(NANOSECONDS))
     }
 
-    test fun `Time should equal function execution time`() {
+    @Test fun `Time should equal function execution time`() {
         time = 10
         stopWatch.time {
             time = 25
@@ -69,7 +69,7 @@ class StopWatchTest() {
         assertEquals(15L, stopWatch.elapsed(NANOSECONDS))
     }
 
-    test fun `Reset should clear timer`() {
+    @Test fun `Reset should clear timer`() {
         stopWatch.start()
         time = 10
         stopWatch.stop()
@@ -79,7 +79,7 @@ class StopWatchTest() {
         assertEquals(0L, stopWatch.elapsed(NANOSECONDS))
     }
 
-    test fun `Elapsed should convert units`() {
+    @Test fun `Elapsed should convert units`() {
         stopWatch.start()
         time = SECONDS.toNanos(2)
         stopWatch.stop()
@@ -87,7 +87,7 @@ class StopWatchTest() {
         assertEquals(2000L, stopWatch.elapsed(MILLISECONDS))
     }
 
-    test fun `toString should display with precision and units`() {
+    @Test fun `toString should display with precision and units`() {
         stopWatch.start()
         time = SECONDS.toNanos(2)
         stopWatch.stop()

@@ -23,33 +23,33 @@
 package com.github.andrewoma.kommon.collection
 
 import kotlin.test.assertEquals
-import org.junit.Test as test
+import org.junit.Test
 
 class CollectionExtensionsTest {
 
-    test fun `Chunked empty sequence should yield an empty list`() {
+    @Test fun `Chunked empty sequence should yield an empty list`() {
         assertEquals(listOf<List<Int>>(), listOf<Int>().asSequence().chunked(1).toList())
     }
 
-    test fun `Chunked sequence of chunk size should yield a single list`() {
+    @Test fun `Chunked sequence of chunk size should yield a single list`() {
         assertEquals(listOf(listOf(1)), listOf(1).asSequence().chunked(1).toList())
         assertEquals(listOf(listOf(1, 2)), listOf(1, 2).asSequence().chunked(2).toList())
     }
 
-    test fun `Chunked sequence of multiples should yield full lists`() {
+    @Test fun `Chunked sequence of multiples should yield full lists`() {
         assertEquals(listOf(listOf(1), listOf(2)), listOf(1, 2).asSequence().chunked(1).toList())
         assertEquals(listOf(listOf(1, 2), listOf(3, 4)), listOf(1, 2, 3, 4).asSequence().chunked(2).toList())
     }
 
-    test fun `Chunked sequence indivisible by size should yield remainder list`() {
+    @Test fun `Chunked sequence indivisible by size should yield remainder list`() {
         assertEquals(listOf(listOf(1, 2), listOf(3)), listOf(1, 2, 3).asSequence().chunked(2).toList())
     }
 
-    test fun `Chunked sequence should yield remainder as list if sequence less than chunk size`() {
+    @Test fun `Chunked sequence should yield remainder as list if sequence less than chunk size`() {
         assertEquals(listOf(listOf(1, 2)), listOf(1, 2).asSequence().chunked(5).toList())
     }
 
-    test fun `HashMap with expected size should allow for load factor`() {
+    @Test fun `HashMap with expected size should allow for load factor`() {
         assertEquals(1, capacity(0))
         assertEquals(14, capacity(10))
         assertEquals(134, capacity(100))
@@ -57,31 +57,31 @@ class CollectionExtensionsTest {
         assertEquals(Integer.MAX_VALUE, capacity(Integer.MAX_VALUE - 1)) // Check we don't overflow
     }
 
-    test fun `HashMap with expected size should return a hashmap`() {
+    @Test fun `HashMap with expected size should return a hashmap`() {
         assertEquals(mapOf<Int, Int>(), hashMapOfExpectedSize<Int, Int>(10))
     }
 
-    test fun `Window looking ahead and behind should be fixed size`() {
+    @Test fun `Window looking ahead and behind should be fixed size`() {
         assertWindow(listOf(1, 2, 3).asSequence().window(before = 1, after = 1), "[[null, 1, 2], [1, 2, 3], [2, 3, null]]")
     }
 
-    test fun `Window looking ahead should be fixed size`() {
+    @Test fun `Window looking ahead should be fixed size`() {
         assertWindow(listOf(1, 2, 3).asSequence().window(after = 1), "[[1, 2], [2, 3], [3, null]]")
     }
 
-    test fun `Window looking behind should be fixed size`() {
+    @Test fun `Window looking behind should be fixed size`() {
         assertWindow(listOf(1, 2, 3).asSequence().window(before = 1), "[[null, 1], [1, 2], [2, 3]]")
     }
 
-    test fun `Window of current element should be window of size 1`() {
+    @Test fun `Window of current element should be window of size 1`() {
         assertWindow(listOf(1, 2, 3).asSequence().window(), "[[1], [2], [3]]")
     }
 
-    test fun `Window of empty sequence should be supported`() {
+    @Test fun `Window of empty sequence should be supported`() {
         assertWindow(listOf<Int>().asSequence().window(), "[]")
     }
 
-    test fun `Window ouput should support destructuring`() {
+    @Test fun `Window ouput should support destructuring`() {
         val result = listOf(1, 2, 3).asSequence().window(before = 1, after = 1).map {
             val (prev, curr, next) = it
             println("$prev $curr $next")

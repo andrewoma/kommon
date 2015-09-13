@@ -25,18 +25,18 @@ package com.github.andrewoma.kommon.collection
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import org.junit.Test as test
+import org.junit.Test
 
 class CircularBufferTest {
 
-    test fun `An empty buffer should have no size`() {
+    @Test fun `An empty buffer should have no size`() {
         val buffer = CircularBuffer<Int>(3)
         assertEquals(0, buffer.size())
         assertTrue(buffer.isEmpty())
         assertFalse(buffer.iterator().hasNext())
     }
 
-    test fun `Adding should cycle on overflow`() {
+    @Test fun `Adding should cycle on overflow`() {
         val buffer = CircularBuffer<Int>(2)
 
         buffer.add(1)
@@ -60,7 +60,7 @@ class CircularBufferTest {
         assertEquals(listOf(2, 3), buffer.asSequence().toList())
     }
 
-    test fun `Removing should work after overflow`() {
+    @Test fun `Removing should work after overflow`() {
         val buffer = CircularBuffer<Int>(2)
 
         buffer.add(1)
@@ -79,7 +79,7 @@ class CircularBufferTest {
         assertTrue(buffer.isEmpty())
     }
 
-    test fun `Using nulls should be supported`() {
+    @Test fun `Using nulls should be supported`() {
         val buffer = CircularBuffer<Int?>(2)
         buffer.add(null)
         buffer.add(null)

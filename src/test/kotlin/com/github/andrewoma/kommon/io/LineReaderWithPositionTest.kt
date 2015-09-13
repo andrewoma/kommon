@@ -27,45 +27,45 @@ import java.io.InputStream
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
-import org.junit.Test as test
+import org.junit.Test
 
 class LineReaderWithPositionTest {
     val String.input: InputStream
         get() = ByteArrayInputStream(this.toByteArray(Charsets.UTF_8))
 
-    test fun empty() {
+    @Test fun empty() {
         assertTrue(LineReaderWithPosition("".input).asSequence().toList().isEmpty())
     }
 
-    test fun singleLineWithinBuffer() {
+    @Test fun singleLineWithinBuffer() {
         val s = "hello"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, s.length(), s, ""), list.first())
     }
 
-    test fun singleLineOverBuffers() {
+    @Test fun singleLineOverBuffers() {
         val s = "hello there phil"
         val list = LineReaderWithPosition(s.input, 3).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, s.length(), s, ""), list.first())
     }
 
-    test fun singleLineMatchesBuffer() {
+    @Test fun singleLineMatchesBuffer() {
         val s = "123456489"
         val list = LineReaderWithPosition(s.input, 9).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, s.length(), s, ""), list.first())
     }
 
-    test fun singleLineMultipleOfBuffers() {
+    @Test fun singleLineMultipleOfBuffers() {
         val s = "123456489"
         val list = LineReaderWithPosition(s.input, 3).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, s.length(), s, ""), list.first())
     }
 
-    test fun multipleLinesWithLf() {
+    @Test fun multipleLinesWithLf() {
         val s = "12\n34\n56"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -74,7 +74,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(6, 8, "56", ""), list[2])
     }
 
-    test fun multipleLinesWithLfWithTrailing() {
+    @Test fun multipleLinesWithLfWithTrailing() {
         val s = "12\n34\n56\n"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -83,7 +83,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(6, 9, "56", "\n"), list[2])
     }
 
-    test fun multipleLinesWithCr() {
+    @Test fun multipleLinesWithCr() {
         val s = "12\r34\r56"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -92,7 +92,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(6, 8, "56", ""), list[2])
     }
 
-    test fun multipleLinesWithCrTrailing() {
+    @Test fun multipleLinesWithCrTrailing() {
         val s = "12\r34\r56\r"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -101,7 +101,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(6, 9, "56", "\r"), list[2])
     }
 
-    test fun multipleLinesWithCrLf() {
+    @Test fun multipleLinesWithCrLf() {
         val s = "12\r\n34\r\n56"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -110,7 +110,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(8, 10, "56", ""), list[2])
     }
 
-    test fun multipleLinesWithCrLfTrailing() {
+    @Test fun multipleLinesWithCrLfTrailing() {
         val s = "12\r\n34\r\n56\r\n"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -119,28 +119,28 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(8, 12, "56", "\r\n"), list[2])
     }
 
-    test fun blankLineCr() {
+    @Test fun blankLineCr() {
         val s = "\r"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, 1, "", "\r"), list[0])
     }
 
-    test fun blankLineLf() {
+    @Test fun blankLineLf() {
         val s = "\n"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, 1, "", "\n"), list[0])
     }
 
-    test fun blankLineCrLf() {
+    @Test fun blankLineCrLf() {
         val s = "\r\n"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(1, list.size())
         assertEquals(LineWithPosition(0, 2, "", "\r\n"), list[0])
     }
 
-    test fun mingledBlanks() {
+    @Test fun mingledBlanks() {
         val s = "12\n\n34"
         val list = LineReaderWithPosition(s.input).asSequence().toList()
         assertEquals(3, list.size())
@@ -149,7 +149,7 @@ class LineReaderWithPositionTest {
         assertEquals(LineWithPosition(4, 6, "34", ""), list[2])
     }
 
-    test(expected = IllegalStateException::class) fun readPastEof() {
+    @Test(expected = IllegalStateException::class) fun readPastEof() {
         val s = "hello"
         val reader = LineReaderWithPosition(s.input)
         assertEquals(LineWithPosition(0, s.length(), s, ""), reader.readLine())
@@ -164,7 +164,7 @@ class LineReaderWithPositionTest {
         assertEquals(string, result)
     }
 
-    test fun roundTrip1() {
+    @Test fun roundTrip1() {
         assertRoundTrip(
                 """If you are not dealing with Android, you may need to disable the Android Plugin in order to compile the project.
 
@@ -173,7 +173,7 @@ To keep the plugin version in sync with the rest of the team and our Continuous 
 the according to the instructions below.""")
     }
 
-    test fun roundTrip2() {
+    @Test fun roundTrip2() {
         val input = """buildscript {
   repositories {
     mavenCentral()

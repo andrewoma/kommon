@@ -26,48 +26,48 @@ import org.junit.Ignore
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.fail
-import org.junit.Test as test
+import org.junit.Test
 
 class ProcessTest() {
-    test fun `shell should capture output by default`() {
+    @Test fun `shell should capture output by default`() {
         val result = shell("echo 'Hello' && echo 'Goodbye' 1>&2")
         assertEquals("Hello", result.out.trim())
         assertEquals("Goodbye", result.error.trim())
     }
 
-    test fun `shell without capture should not capture output`() {
+    @Test fun `shell without capture should not capture output`() {
         val result = shell("echo 'Hello' && echo 'Goodbye' 1>&2", captureOut = false, captureError = false)
         assertEquals("", result.out)
         assertEquals("", result.error)
     }
 
-    test fun `shell with redirected stderr should capture error in out`() {
+    @Test fun `shell with redirected stderr should capture error in out`() {
         val out = shell("echo 'Hello' && echo 'Goodbye' 1>&2", redirectError = true).out
         assertEquals("Hello\nGoodbye", out.trim())
     }
 
-    test fun `shell should have access to passed environment`() {
+    @Test fun `shell should have access to passed environment`() {
         val out = shell("echo \$HELLO \$WORLD", environment = mapOf("HELLO" to "foo", "WORLD" to "bar")).out
         assertEquals("foo bar", out.trim())
     }
 
-    test(expected = IllegalStateException::class) fun `shell with default verification should fail on non-zero exit code`() {
+    @Test(expected = IllegalStateException::class) fun `shell with default verification should fail on non-zero exit code`() {
         shell("exit 1")
     }
 
-    test fun `shell with default verification should succeed on zero exit code`() {
+    @Test fun `shell with default verification should succeed on zero exit code`() {
         shell("exit 0")
     }
 
-    test fun `shell should honour custom verification function`() {
+    @Test fun `shell should honour custom verification function`() {
         shell("exit 1", verify = { true })
     }
 
-    test fun `env should give access to environment variables`() {
+    @Test fun `env should give access to environment variables`() {
         assertNotNull(env("HOME"))
     }
 
-    Ignore test fun `shell should give meaningful errors on failure`() {
+    @Ignore @Test fun `shell should give meaningful errors on failure`() {
         try {
             shell("echo 'Hello' && echo 'Goodbye' 1>&2 && exit 1")
             fail()

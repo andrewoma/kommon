@@ -25,18 +25,18 @@ package com.github.andrewoma.kommon.lang
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import org.junit.Test as test
+import org.junit.Test
 
 class StringExtensionsTest {
 
-    test fun `truncateRight should return the right hand side of a string`() {
+    @Test fun `truncateRight should return the right hand side of a string`() {
         assertEquals("", "hello".truncateRight(0))
         assertEquals("llo", "hello".truncateRight(3))
         assertEquals("hello", "hello".truncateRight(5))
         assertEquals("hello", "hello".truncateRight(100))
     }
 
-    test fun `truncateRight should prefix on truncation`() {
+    @Test fun `truncateRight should prefix on truncation`() {
         assertEquals("...", "hello".truncateRight(0, "..."))
         assertEquals("...llo", "hello".truncateRight(3, "..."))
     }
