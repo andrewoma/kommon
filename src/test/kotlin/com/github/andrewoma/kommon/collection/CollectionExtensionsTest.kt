@@ -22,8 +22,8 @@
 
 package com.github.andrewoma.kommon.collection
 
-import kotlin.test.assertEquals
 import org.junit.Test
+import kotlin.test.assertEquals
 
 class CollectionExtensionsTest {
 

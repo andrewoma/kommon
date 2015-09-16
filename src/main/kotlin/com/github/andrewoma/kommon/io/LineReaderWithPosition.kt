@@ -59,7 +59,7 @@ public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize
     private val inputStream = PushbackInputStream(inputStream)
 
     fun readLine(): LineWithPosition? {
-        check(eof != Eof.reported, "Attempt to read past EOF")
+        check(eof != Eof.reported) { "Attempt to read past EOF" }
 
         if (eof == Eof.found) {
             eof = Eof.reported

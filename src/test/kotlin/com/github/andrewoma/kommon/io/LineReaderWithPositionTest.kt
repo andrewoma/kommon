@@ -22,12 +22,12 @@
 
 package com.github.andrewoma.kommon.io
 
+import org.junit.Test
 import java.io.ByteArrayInputStream
 import java.io.InputStream
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
-import org.junit.Test
 
 class LineReaderWithPositionTest {
     val String.input: InputStream

@@ -23,10 +23,10 @@
 package com.github.andrewoma.kommon.script
 
 import org.junit.Ignore
+import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.fail
-import org.junit.Test
 
 class ProcessTest() {
     @Test fun `shell should capture output by default`() {

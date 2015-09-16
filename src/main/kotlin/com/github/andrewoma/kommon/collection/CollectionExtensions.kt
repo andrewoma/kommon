@@ -22,8 +22,7 @@
 
 package com.github.andrewoma.kommon.collection
 
-import java.util.ArrayList
-import java.util.HashMap
+import java.util.*
 import kotlin.support.AbstractIterator
 
 public fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
@@ -74,7 +73,7 @@ fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
  *  For better performance setting reuseList = true will return the internal buffer directly instead of
  *  creating a copy. WARNING: Only do this if consuming the returned list before the next iteration
  */
-@suppress("BASE_WITH_NULLABLE_UPPER_BOUND")
+@Suppress("BASE_WITH_NULLABLE_UPPER_BOUND")
 public fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Sequence<List<T?>> {
     val iterator = this.iterator()
 

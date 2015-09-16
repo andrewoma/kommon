@@ -22,12 +22,12 @@
 
 package com.github.andrewoma.kommon.util
 
+import org.junit.Test
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import java.util.concurrent.TimeUnit.MINUTES
 import java.util.concurrent.TimeUnit.NANOSECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.test.assertEquals
-import org.junit.Test
 
 class StopWatchTest() {
     var time = 0L

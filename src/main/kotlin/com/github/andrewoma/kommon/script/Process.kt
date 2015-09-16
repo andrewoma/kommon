@@ -71,7 +71,7 @@ public fun shell(command: String,
         Out: ${result.out.truncateRight(1000, "...")}
         Error: ${result.error.truncateRight(1000, "...")}"""
 
-    check(verify(result.exitCode), error)
+    check(verify(result.exitCode)) { error }
     return result
 }
 
@@ -80,7 +80,7 @@ public fun shell(command: String,
  */
 public class ProcessResult(val out: String, val error: String, val exitCode: Int) {
     fun verify(f: (Int) -> Boolean = { it == 0 }): ProcessResult {
-        check(f(exitCode), "Unexpected exit code: $exitCode")
+        check(f(exitCode)) { "Unexpected exit code: $exitCode" }
         return this;
     }
 }

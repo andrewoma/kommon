@@ -35,7 +35,7 @@ public class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
     private var running: Boolean = false
 
     public fun start(): StopWatch {
-        check(!running, "The stop watch is already started")
+        check(!running) { "The stop watch is already started" }
         start = currentTime()
         running = true
         return this
@@ -51,7 +51,7 @@ public class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
     }
 
     public fun stop(): StopWatch {
-        check(running, "The stop watch is already stopped")
+        check(running) { "The stop watch is already stopped" }
         running = false
         elapsedNanoseconds += currentTime() - start
         return this
