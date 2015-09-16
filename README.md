@@ -15,6 +15,9 @@ in Maven Central and is compatible with Kotlin M11.
 [0.2](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.2%7Cjar) is available
 in Maven Central and is compatible with Kotlin M12.
 
+[0.3](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.3%7Cjar) is available
+in Maven Central and is compatible with Kotlin M13.
+
 #### Features
 
 ##### Shell
@@ -44,6 +47,7 @@ for (window in lines.window(before = 1, after = 1) {
 ```
 
 ##### Strings
+```kotlin
 // Truncate, keeping the end of a string
 assertEquals("llo", "hello".truncateRight(3))
 ```
