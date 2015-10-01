@@ -24,6 +24,7 @@ package com.github.andrewoma.kommon.collection
 
 import java.util.*
 
+// TODO - this should be internal but the tests via the gradle build no longer have access
 class CircularBuffer<T>(size: Int) : List<T> {
     private var elements: Array<Any?>
     private var start = 0
@@ -45,7 +46,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
 
     override fun isEmpty() = size() == 0
 
-    public fun add(element: T) {
+    fun add(element: T) {
         if (size() == maxElements) {
             remove()
         }
@@ -59,7 +60,7 @@ class CircularBuffer<T>(size: Int) : List<T> {
         }
     }
 
-    public fun remove(): T {
+    fun remove(): T {
         if (isEmpty()) throw NoSuchElementException()
 
         val element = elements[start]

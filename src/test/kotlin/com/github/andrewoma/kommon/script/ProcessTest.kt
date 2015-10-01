@@ -63,6 +63,11 @@ class ProcessTest() {
         shell("exit 1", verify = { true })
     }
 
+    @Test fun `exec should allow verification`() {
+        val result = exec(listOf("/bin/bash", "-c", "echo 'Hello'")).result()
+        result.verify { it == 0 }
+    }
+
     @Test fun `env should give access to environment variables`() {
         assertNotNull(env("HOME"))
     }

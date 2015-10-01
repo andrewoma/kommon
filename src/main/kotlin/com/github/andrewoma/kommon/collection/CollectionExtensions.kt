@@ -25,7 +25,7 @@ package com.github.andrewoma.kommon.collection
 import java.util.*
 import kotlin.support.AbstractIterator
 
-public fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
+fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
     val iterator = this.iterator()
 
     return object : Sequence<List<T>> {
@@ -45,9 +45,9 @@ public fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
  * Creates a HashMap with a capacity to handle 'size' elements without requiring internal resizing.
  * It does this by adding roughly 30% extra to the size to allow for the default 0.75 load factor
  */
-public fun <K, V> hashMapOfExpectedSize(size: Int): HashMap<K, V> = HashMap(capacity(size))
+fun <K, V> hashMapOfExpectedSize(size: Int): HashMap<K, V> = HashMap(capacity(size))
 
-fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
+private fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
     if (it > Integer.MAX_VALUE) Integer.MAX_VALUE else it.toInt()
 }
 
@@ -74,7 +74,7 @@ fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
  *  creating a copy. WARNING: Only do this if consuming the returned list before the next iteration
  */
 @Suppress("BASE_WITH_NULLABLE_UPPER_BOUND")
-public fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Sequence<List<T?>> {
+fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean = false): Sequence<List<T?>> {
     val iterator = this.iterator()
 
     return object : Sequence<List<T?>> {

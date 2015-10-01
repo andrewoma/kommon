@@ -28,11 +28,11 @@ import java.io.*
 /**
  * Executes a system command using ProcessBuilder
  */
-public fun exec(command: List<String>,
-                directory: File = currentDir,
-                environment: Map<String, String> = mapOf(),
-                useShell: Boolean = false,
-                redirectError: Boolean = false): Process {
+fun exec(command: List<String>,
+         directory: File = currentDir,
+         environment: Map<String, String> = mapOf(),
+         useShell: Boolean = false,
+         redirectError: Boolean = false): Process {
 
     val b = ProcessBuilder()
     b.directory(directory)
@@ -47,13 +47,13 @@ public fun exec(command: List<String>,
 /**
  * Executes a system command using the system shell, handling the output while it waits for the process to terminate
  */
-public fun shell(command: String,
-                 directory: File = currentDir,
-                 environment: Map<String, String> = mapOf(),
-                 redirectError: Boolean = false,
-                 captureOut: Boolean = true,
-                 captureError: Boolean = true,
-                 verify: (Int) -> Boolean = { it == 0 }): ProcessResult {
+fun shell(command: String,
+          directory: File = currentDir,
+          environment: Map<String, String> = mapOf(),
+          redirectError: Boolean = false,
+          captureOut: Boolean = true,
+          captureError: Boolean = true,
+          verify: (Int) -> Boolean = { it == 0 }): ProcessResult {
 
     val result = exec(command = listOf(command), directory = directory, redirectError = redirectError,
             useShell = true, environment = environment).result(captureOut, captureError)
@@ -78,7 +78,7 @@ public fun shell(command: String,
 /**
  * Process result contains the exit code process output if captured
  */
-public class ProcessResult(val out: String, val error: String, val exitCode: Int) {
+class ProcessResult(val out: String, val error: String, val exitCode: Int) {
     fun verify(f: (Int) -> Boolean = { it == 0 }): ProcessResult {
         check(f(exitCode)) { "Unexpected exit code: $exitCode" }
         return this;
@@ -88,7 +88,7 @@ public class ProcessResult(val out: String, val error: String, val exitCode: Int
 /**
  * Waits for a process to terminate, either capturing or discarding output as specified.
  */
-public fun Process.result(captureOut: Boolean = true, captureError: Boolean = true): ProcessResult {
+fun Process.result(captureOut: Boolean = true, captureError: Boolean = true): ProcessResult {
     // NullWriter allows output to be consumed and discarded. Otherwise execution blocks on some platforms
     class NullWriter : Writer() {
         override fun write(cbuf: CharArray, off: Int, len: Int) {
@@ -113,8 +113,8 @@ public fun Process.result(captureOut: Boolean = true, captureError: Boolean = tr
         }
     }
 
-    val outConsumer = OutputConsumer(this.getInputStream(), if (captureOut) StringWriter() else NullWriter())
-    val errorConsumer = OutputConsumer(this.getErrorStream(), if (captureError) StringWriter() else NullWriter())
+    val outConsumer = OutputConsumer(this.inputStream, if (captureOut) StringWriter() else NullWriter())
+    val errorConsumer = OutputConsumer(this.errorStream, if (captureError) StringWriter() else NullWriter())
     val exitCode = this.waitFor()
     outConsumer.join()
     errorConsumer.join()

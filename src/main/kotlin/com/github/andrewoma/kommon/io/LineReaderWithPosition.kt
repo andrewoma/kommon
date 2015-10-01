@@ -26,7 +26,7 @@ import java.io.InputStream
 import java.io.PushbackInputStream
 import java.nio.charset.Charset
 
-public data class LineWithPosition(val start: Int, val end: Int, val line: String, val delimiter: String)
+data class LineWithPosition(val start: Int, val end: Int, val line: String, val delimiter: String)
 
 /**
  * LineReaderWithPosition is a line reader that records the byte positions of the line in the stream
@@ -38,7 +38,7 @@ public data class LineWithPosition(val start: Int, val end: Int, val line: Strin
  *
  * LineReaderWithPosition assumes the input stream is buffered.
  */
-public class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int = 8192, val charSet: Charset = Charsets.UTF_8) {
+class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int = 8192, val charSet: Charset = Charsets.UTF_8) {
     private enum class Eof { notFound, found, reported }
 
     private companion object {

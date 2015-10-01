@@ -29,19 +29,19 @@ import java.util.concurrent.TimeUnit.*
  * StopWatch is a simple timer. Multiple timings can be accumulated by calling start() and stop()
  * in sequence.
  */
-public class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
+class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
     private var start: Long = 0
     private var elapsedNanoseconds: Long = 0
     private var running: Boolean = false
 
-    public fun start(): StopWatch {
+    fun start(): StopWatch {
         check(!running) { "The stop watch is already started" }
         start = currentTime()
         running = true
         return this
     }
 
-    public inline fun <R> time(f: () -> R): R {
+    inline fun <R> time(f: () -> R): R {
         start()
         try {
             return f()
@@ -50,34 +50,34 @@ public class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
         }
     }
 
-    public fun stop(): StopWatch {
+    fun stop(): StopWatch {
         check(running) { "The stop watch is already stopped" }
         running = false
         elapsedNanoseconds += currentTime() - start
         return this
     }
 
-    public fun reset(): StopWatch {
+    fun reset(): StopWatch {
         elapsedNanoseconds = 0
         running = false
         return this
     }
 
-    public fun elapsed(unit: TimeUnit): Long {
+    fun elapsed(unit: TimeUnit): Long {
         val elapsed = if (running) elapsedNanoseconds + currentTime() - start else elapsedNanoseconds
         return unit.convert(elapsed, NANOSECONDS)
     }
 
     override fun toString() = toString(MILLISECONDS)
 
-    public fun toString(unit: TimeUnit, precision: Int = 3): String {
+    fun toString(unit: TimeUnit, precision: Int = 3): String {
         val value = elapsed(NANOSECONDS).toDouble() / NANOSECONDS.convert(1, unit)
 
         return "%.${precision}f %s".format(value, unit.abbreviation())
     }
 }
 
-public fun TimeUnit.abbreviation(): String = when (this) {
+fun TimeUnit.abbreviation(): String = when (this) {
     NANOSECONDS -> "ns"
     MICROSECONDS -> "\u03bcs"
     MILLISECONDS -> "ms"
