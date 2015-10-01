@@ -26,7 +26,7 @@ import java.util.*
 
 // TODO - this should be internal but the tests via the gradle build no longer have access
 /*internal*/ class CircularBuffer<T>(size: Int) : List<T> {
-    private var elements: Array<Any?>
+    private var elements: Array<Any?> // TODO ... fix bound of Array
     private var start = 0
     private var end = 0
     private var full = false
