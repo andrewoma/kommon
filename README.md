@@ -18,6 +18,9 @@ in Maven Central and is compatible with Kotlin M12.
 [0.3](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.3%7Cjar) is available
 in Maven Central and is compatible with Kotlin M13.
 
+[0.4](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.4%7Cjar) is available
+in Maven Central and is compatible with Kotlin M14.
+
 #### Features
 
 ##### Shell
