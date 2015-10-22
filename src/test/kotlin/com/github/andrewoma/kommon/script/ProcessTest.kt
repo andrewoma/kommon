@@ -89,7 +89,7 @@ class ProcessTest() {
 
         Error: Goodbye
 """
-            assertEquals(expected, e.getMessage())
+            assertEquals(expected, e.message)
         }
     }
 }

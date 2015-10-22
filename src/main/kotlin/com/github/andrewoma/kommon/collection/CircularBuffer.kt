@@ -35,19 +35,20 @@ import java.util.*
     init {
         require(size >= 0) { "The size must be greater than 0" }
         elements = arrayOfNulls<Any>(size)
-        maxElements = elements.size()
+        maxElements = elements.size
     }
 
-    override fun size() = when {
-        end < start -> maxElements - start + end
-        end == start -> if (full) maxElements else 0
-        else -> end - start
-    }
+    override val size: Int
+        get() = when {
+            end < start -> maxElements - start + end
+            end == start -> if (full) maxElements else 0
+            else -> end - start
+        }
 
-    override fun isEmpty() = size() == 0
+    override fun isEmpty() = size == 0
 
     fun add(element: T) {
-        if (size() == maxElements) {
+        if (size == maxElements) {
             remove()
         }
 
@@ -98,26 +99,26 @@ import java.util.*
         }
     }
 
-    override fun contains(o: Any?): Boolean {
+    override fun contains(element: T): Boolean {
         throw UnsupportedOperationException()
     }
 
-    override fun containsAll(c: Collection<Any?>): Boolean {
+    override fun containsAll(elements: Collection<T>): Boolean {
         throw UnsupportedOperationException()
     }
 
     override fun get(index: Int): T {
-        if (index >= size()) throw IndexOutOfBoundsException("")
+        if (index >= size) throw IndexOutOfBoundsException("")
         val pos = (start + index).let { if (it >= maxElements) it - maxElements else it }
         @Suppress("UNCHECKED_CAST")
         return elements[pos] as T
     }
 
-    override fun indexOf(o: Any?): Int {
+    override fun indexOf(element: T): Int {
         throw UnsupportedOperationException()
     }
 
-    override fun lastIndexOf(o: Any?): Int {
+    override fun lastIndexOf(element: T): Int {
         throw UnsupportedOperationException()
     }
 

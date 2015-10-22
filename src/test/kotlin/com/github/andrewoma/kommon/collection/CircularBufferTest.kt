@@ -31,7 +31,7 @@ class CircularBufferTest {
 
     @Test fun `An empty buffer should have no size`() {
         val buffer = CircularBuffer<Int>(3)
-        assertEquals(0, buffer.size())
+        assertEquals(0, buffer.size)
         assertTrue(buffer.isEmpty())
         assertFalse(buffer.iterator().hasNext())
     }
@@ -40,20 +40,20 @@ class CircularBufferTest {
         val buffer = CircularBuffer<Int>(2)
 
         buffer.add(1)
-        assertEquals(1, buffer.size())
+        assertEquals(1, buffer.size)
         assertEquals(1, buffer[0])
         assertFalse(buffer.isEmpty())
         assertEquals(listOf(1), buffer.asSequence().toList())
 
         buffer.add(2)
-        assertEquals(2, buffer.size())
+        assertEquals(2, buffer.size)
         assertEquals(1, buffer[0])
         assertEquals(2, buffer[1])
         assertFalse(buffer.isEmpty())
         assertEquals(listOf(1, 2), buffer.asSequence().toList())
 
         buffer.add(3)
-        assertEquals(2, buffer.size())
+        assertEquals(2, buffer.size)
         assertEquals(2, buffer[0])
         assertEquals(3, buffer[1])
         assertFalse(buffer.isEmpty())
@@ -69,13 +69,13 @@ class CircularBufferTest {
         assertEquals(listOf(2, 3), buffer.asSequence().toList())
 
         assertEquals(2, buffer.remove())
-        assertEquals(1, buffer.size())
+        assertEquals(1, buffer.size)
         assertEquals(3, buffer[0])
         assertFalse(buffer.isEmpty())
         assertEquals(listOf(3), buffer.asSequence().toList())
 
         assertEquals(3, buffer.remove())
-        assertEquals(0, buffer.size())
+        assertEquals(0, buffer.size)
         assertTrue(buffer.isEmpty())
     }
 

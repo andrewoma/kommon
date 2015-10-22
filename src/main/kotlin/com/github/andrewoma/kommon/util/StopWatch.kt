@@ -85,5 +85,5 @@ fun TimeUnit.abbreviation(): String = when (this) {
     MINUTES -> "m"
     HOURS -> "h"
     DAYS -> "d"
-    else -> name()
+    else -> name
 }

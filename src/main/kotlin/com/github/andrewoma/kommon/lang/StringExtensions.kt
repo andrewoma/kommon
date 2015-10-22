@@ -23,6 +23,6 @@
 package com.github.andrewoma.kommon.lang
 
 fun String.truncateRight(num: Int, prefixOnTruncation: String = ""): String {
-    if (num >= this.length()) return this
-    return prefixOnTruncation + this.drop(this.length() - num)
+    if (num >= this.length) return this
+    return prefixOnTruncation + this.drop(this.length - num)
 }
