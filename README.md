@@ -9,17 +9,11 @@ as the standard library matures.
 
 Unstable, but probably works.
 
-[0.1](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.1%7Cjar) is available
-in Maven Central and is compatible with Kotlin M11.
+Releases are available in Maven Central [here](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.andrewoma.kommon%22).
 
-[0.2](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.2%7Cjar) is available
-in Maven Central and is compatible with Kotlin M12.
+The current release (0.5) is compatible with 1.0.0-beta-1038.
 
-[0.3](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.3%7Cjar) is available
-in Maven Central and is compatible with Kotlin M13.
-
-[0.4](http://search.maven.org/#artifactdetails%7Ccom.github.andrewoma.kommon%7Ckommon%7C0.4%7Cjar) is available
-in Maven Central and is compatible with Kotlin M14.
+Older releases are available for historical Kotlin versions.
 
 #### Features
 
