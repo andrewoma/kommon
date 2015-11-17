@@ -47,7 +47,7 @@ fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
  */
 fun <K, V> hashMapOfExpectedSize(size: Int): HashMap<K, V> = HashMap(capacity(size))
 
-/* internal */ public fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
+internal fun capacity(size: Int) = (size.toLong() + (size / 3) + 1).let {
     if (it > Integer.MAX_VALUE) Integer.MAX_VALUE else it.toInt()
 }
 
