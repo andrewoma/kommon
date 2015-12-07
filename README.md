@@ -11,7 +11,7 @@ Unstable, but probably works.
 
 Releases are available in Maven Central [here](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.andrewoma.kommon%22).
 
-The current release (0.5) is compatible with 1.0.0-beta-1038.
+The current release (0.6) is compatible with 1.0.0-beta-3595.
 
 Older releases are available for historical Kotlin versions.
 
@@ -37,8 +37,7 @@ for (batch in records.chunked(10)) {
 
 // Process a sequence using a window to look ahead and/or behind
 val lines: Sequence<String> ...
-for (window in lines.window(before = 1, after = 1) {
-    val (prev, current, next) = window
+for ((prev, current, next) in lines.window(before = 1, after = 1).asIterable) {
     ...
 }
 ```
