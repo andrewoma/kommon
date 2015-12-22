@@ -23,7 +23,6 @@
 package com.github.andrewoma.kommon.collection
 
 import java.util.*
-import kotlin.support.AbstractIterator
 
 fun <T> Sequence<T>.chunked(size: Int): Sequence<List<T>> {
     val iterator = this.iterator()
