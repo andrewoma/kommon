@@ -1,8 +1,11 @@
 buildscript {
     ext {
-        kotlinVersion = '1.0.0-beta-4583'
+        kotlinVersion = '1.0.0-rc-1017'
     }
     repositories {
+        maven {
+            url "https://dl.bintray.com/kotlin/kotlin-eap/"
+        }
         jcenter()
     }
     dependencies {
@@ -23,6 +26,9 @@ apply plugin: 'com.github.ben-manes.versions'
 group = "com.github.andrewoma.kommon"
 
 repositories {
+    maven {
+        url "https://dl.bintray.com/kotlin/kotlin-eap/"
+    }
     mavenCentral()
 }
 

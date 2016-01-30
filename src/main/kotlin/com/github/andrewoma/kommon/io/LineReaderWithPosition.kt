@@ -148,6 +148,6 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
     }
 
     fun asSequence(): Sequence<LineWithPosition> {
-        return sequence { this.readLine() }
+        return generateSequence { this.readLine() }
     }
 }
