@@ -48,6 +48,21 @@ for ((prev, current, next) in lines.window(before = 1, after = 1).asIterable) {
 assertEquals("llo", "hello".truncateRight(3))
 ```
 
+##### Language
+```kotlin
+// Helper to generate equals with a type safe function
+class Foo(val bar: String, val baz: Int, val quz: String?) {
+    override fun equals(other: Any?) = equals(this, other) { o1, o2 ->
+        return o1.bar == o2.bar && o1.baz == o2.baz && o1.quz == o2.quz
+    }
+}
+
+// Helper to generate equals with a list of properties
+class Bar(val foo: String, val baz: Int, val quz: String?) {
+    override fun equals(other: Any?) = equals(this, other, Bar::foo, Bar::baz, Bar::quz)
+}
+```
+
 ##### Misc
 ```kotlin
 // A stop watch for basic timings
