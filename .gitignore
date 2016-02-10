@@ -1,6 +1,5 @@
 atlassian-ide-plugin.xml
-.idea/workspace.xml
-.idea/tasks.xml
+.idea
 target
 .gradle
 build/
