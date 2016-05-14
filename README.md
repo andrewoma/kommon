@@ -11,7 +11,7 @@ Unstable, but probably works.
 
 Releases are available in Maven Central [here](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.andrewoma.kommon%22).
 
-The current release (0.9) is compatible with 1.0.0.
+The current release (0.10) is compatible with 1.0.2.
 
 Older releases are available for historical Kotlin versions.
 
