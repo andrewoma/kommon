@@ -80,7 +80,7 @@ fun <T> Sequence<T>.window(before: Int = 0, after: Int = 0, reuseList: Boolean =
         val size = before + after + 1
         val buffer = CircularBuffer<T?>(size)
         var ahead = 0
-        var first = true;
+        var first = true
 
         init {
             for (i in 1..size) {

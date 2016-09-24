@@ -81,7 +81,7 @@ fun shell(command: String,
 class ProcessResult(val out: String, val error: String, val exitCode: Int) {
     fun verify(f: (Int) -> Boolean = { it == 0 }): ProcessResult {
         check(f(exitCode)) { "Unexpected exit code: $exitCode" }
-        return this;
+        return this
     }
 }
 
