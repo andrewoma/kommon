@@ -1,10 +1,10 @@
 buildscript {
     ext {
-        kotlinVersion = '1.0.4'
+        kotlinVersion = '1.1.0-rc-91'
     }
     repositories {
         maven {
-            url "https://dl.bintray.com/kotlin/kotlin-eap/"
+            url "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
         }
         jcenter()
     }
@@ -27,13 +27,13 @@ group = "com.github.andrewoma.kommon"
 
 repositories {
     maven {
-        url "https://dl.bintray.com/kotlin/kotlin-eap/"
+        url "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
     }
     mavenCentral()
 }
 
 compileKotlin {
-    kotlinOptions.moduleName = "${project.group}"
+//    kotlinOptions.moduleName = "${project.group}"
 }
 
 dependencies {

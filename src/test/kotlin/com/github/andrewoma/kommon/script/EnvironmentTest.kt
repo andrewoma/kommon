@@ -26,7 +26,7 @@ import org.junit.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
-class EnvironmentTest() {
+class EnvironmentTest {
     // TODO ... make these tests a bit more worthwhile
     @Test fun env() {
         assertNotNull(env("HOME"))

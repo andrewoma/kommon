@@ -34,9 +34,5 @@ inline fun <reified T> equals(t: T, other: Any?, vararg properties: KProperty1<T
     if (t === other) return true
     if (other !is T) return false
 
-    for (property in properties) {
-        if (property.get(t) != property.get(other)) return false
-    }
-
-    return true
+    return properties.none { it.get(t) != it.get(other) }
 }

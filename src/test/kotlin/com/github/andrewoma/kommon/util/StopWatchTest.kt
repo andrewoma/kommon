@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit.NANOSECONDS
 import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.test.assertEquals
 
-class StopWatchTest() {
+class StopWatchTest {
     var time = 0L
     val stopWatch = StopWatch({ time })
 

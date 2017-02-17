@@ -28,7 +28,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.fail
 
-class ProcessTest() {
+class ProcessTest {
     @Test fun `shell should capture output by default`() {
         val result = shell("echo 'Hello' && echo 'Goodbye' 1>&2")
         assertEquals("Hello", result.out.trim())
