@@ -39,7 +39,7 @@ data class LineWithPosition(val start: Int, val end: Int, val line: String, val 
  * LineReaderWithPosition assumes the input stream is buffered.
  */
 class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int = 8192, val charSet: Charset = Charsets.UTF_8) {
-    private enum class Eof { notFound, found, reported }
+    private enum class Eof { NotFound, Found, Reported }
 
     private companion object {
         val CR = '\r'.toInt()
@@ -55,14 +55,14 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
     private var start = 0
     private var end = 0
     private var bufferPos = 0
-    private var eof = Eof.notFound
+    private var eof = Eof.NotFound
     private val inputStream = PushbackInputStream(inputStream)
 
     fun readLine(): LineWithPosition? {
-        check(eof != Eof.reported) { "Attempt to read past EOF" }
+        check(eof != Eof.Reported) { "Attempt to read past EOF" }
 
-        if (eof == Eof.found) {
-            eof = Eof.reported
+        if (eof == Eof.Found) {
+            eof = Eof.Reported
             return null
         }
 
@@ -71,12 +71,12 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
 
             // EOF
             if (char == -1) {
-                if (start == end) {
-                    eof = Eof.reported
-                    return null
+                return if (start == end) {
+                    eof = Eof.Reported
+                    null
                 } else {
-                    eof = Eof.found
-                    return result("")
+                    eof = Eof.Found
+                    result("")
                 }
             }
 
@@ -107,7 +107,7 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
         }
     }
 
-    fun append(byte: Byte) {
+    private fun append(byte: Byte) {
         if (bufferPos == lineBufferSize) {
             // Buffer full
             if (result != null) {
@@ -126,16 +126,16 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
         bufferPos++
     }
 
-    fun result(delimiter: String): LineWithPosition? {
-        val string = if (result == null) {
-            String(buffer, 0, bufferPos, charSet)
-        } else if (bufferPos == 0) {
-            String(result!!, charSet)
-        } else {
-            val newResult = ByteArray(result!!.size + bufferPos)
-            System.arraycopy(result!!, 0, newResult, 0, result!!.size)
-            System.arraycopy(buffer, 0, newResult, result!!.size, bufferPos)
-            String(newResult, charSet)
+    private fun result(delimiter: String): LineWithPosition? {
+        val string = when {
+            result == null -> String(buffer, 0, bufferPos, charSet)
+            bufferPos == 0 -> String(result!!, charSet)
+            else -> {
+                val newResult = ByteArray(result!!.size + bufferPos)
+                System.arraycopy(result!!, 0, newResult, 0, result!!.size)
+                System.arraycopy(buffer, 0, newResult, result!!.size, bufferPos)
+                String(newResult, charSet)
+            }
         }
 
         val line = LineWithPosition(start, end, string, delimiter)

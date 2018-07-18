@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit.*
  * StopWatch is a simple timer. Multiple timings can be accumulated by calling start() and stop()
  * in sequence.
  */
-class StopWatch(val currentTime: () -> Long = { System.nanoTime() }) {
+class StopWatch(private val currentTime: () -> Long = { System.nanoTime() }) {
     private var start: Long = 0
     private var elapsedNanoseconds: Long = 0
     private var running: Boolean = false

@@ -59,8 +59,8 @@ class ObjectExtensionsTest {
     @Test fun `should implement equality via properties`() {
         assertEquals(Bar("a", 1, "b"), Bar("a", 1, "b"))
         assertEquals(Bar("a", 1, null), Bar("a", 1, null))
-        val Bar = Bar("a", 1, null)
-        assertEquals(Bar, Bar)
+        val bar = Bar("a", 1, null)
+        assertEquals(bar, bar)
 
         assertFalse(Bar("a", 1, "b") == Bar("b", 1, "b"))
         assertFalse(Bar("a", 1, "b") == Bar("a", 2, "b"))

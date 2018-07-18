@@ -33,7 +33,7 @@ internal class CircularBuffer<T>(size: Int) : List<T> {
 
     init {
         require(size >= 0) { "The size must be greater than 0" }
-        elements = arrayOfNulls<Any>(size)
+        elements = arrayOfNulls(size)
         maxElements = elements.size
     }
 

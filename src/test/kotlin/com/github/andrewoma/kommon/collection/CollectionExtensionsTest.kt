@@ -28,7 +28,7 @@ import kotlin.test.assertEquals
 class CollectionExtensionsTest {
 
     @Test fun `Chunked empty sequence should yield an empty list`() {
-        assertEquals(listOf<List<Int>>(), listOf<Int>().asSequence().chunked(1).toList())
+        assertEquals(listOf(), listOf<Int>().asSequence().chunked(1).toList())
     }
 
     @Test fun `Chunked sequence of chunk size should yield a single list`() {
@@ -58,7 +58,7 @@ class CollectionExtensionsTest {
     }
 
     @Test fun `HashMap with expected size should return a hashmap`() {
-        assertEquals(mapOf<Int, Int>(), hashMapOfExpectedSize<Int, Int>(10))
+        assertEquals(mapOf<Int, Int>(), hashMapOfExpectedSize(10))
     }
 
     @Test fun `Window looking ahead and behind should be fixed size`() {
