@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.51'
+        kotlinVersion = '1.3.0'
     }
     repositories {
         maven {
@@ -32,16 +32,8 @@ repositories {
     mavenCentral()
 }
 
-compileKotlin {
-//    kotlinOptions.moduleName = "${project.group}"
-}
-
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
     testCompile 'junit:junit:4.12'
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = "2.11"
 }

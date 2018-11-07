@@ -42,12 +42,12 @@ class LineReaderWithPosition(inputStream: InputStream, val lineBufferSize: Int =
     private enum class Eof { NotFound, Found, Reported }
 
     private companion object {
-        val CR = '\r'.toInt()
-        val LF = '\n'.toInt()
+        const val CR = '\r'.toInt()
+        const val LF = '\n'.toInt()
 
-        val CR_DELIM = "\r"
-        val LF_DELIM = "\n"
-        val CR_LF_DELIM = "\r\n"
+        const val CR_DELIM = "\r"
+        const val LF_DELIM = "\n"
+        const val CR_LF_DELIM = "\r\n"
     }
 
     private val buffer = ByteArray(lineBufferSize)
